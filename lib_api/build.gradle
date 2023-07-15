@@ -1,17 +1,15 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.example.sumtest'
+    namespace 'com.example.lib.api'
     compileSdk app_sdk.compileSdk
+
     defaultConfig {
-        applicationId "com.example.sumtest"
         minSdk app_sdk.minSdk
         targetSdk app_sdk.targetSdk
-        versionCode 1
-        versionName "1.0"
     }
 
     buildTypes {
@@ -27,12 +25,11 @@ android {
         jvmTarget = '17'
     }
 }
+
 dependencies {
+
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation(project(":lib_api"))
-    implementation(project(":lib_netWork"))
-    implementation(project(":modle_recommended"))
+    api "com.alibaba:arouter-api:$versions.arouter_version"
 }
