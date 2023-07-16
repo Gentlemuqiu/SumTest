@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_api" />
+            <option value="$PROJECT_DIR$/lib_netWork" />
+            <option value="$PROJECT_DIR$/modle_recommended" />
           </set>
         </option>
       </GradleProjectSettings>
