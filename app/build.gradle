@@ -34,5 +34,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation(project(":lib_api"))
     implementation(project(":lib_netWork"))
-    implementation(project(":modle_recommended"))
+    implementation(project(":modle_home"))
 }

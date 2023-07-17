@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name="ui.TestRecommendActivity"
+            android:name="ui.TestHomeActivity"
             android:exported="true"
             android:theme="@style/Theme.SumTest">
             <intent-filter>

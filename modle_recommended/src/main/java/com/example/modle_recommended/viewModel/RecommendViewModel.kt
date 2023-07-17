@@ -15,7 +15,7 @@ import retrofit2.await
 
 class RecommendViewModel(app: Application) : androidx.lifecycle.AndroidViewModel(app) {
 
-    val recommendList = MutableLiveData<recommend>()
+    val recommendList = MutableLiveData<List<recommend>>()
     fun setRecommend() {
         viewModelScope.launch {
             flow {

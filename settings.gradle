@@ -17,3 +17,5 @@ include ':app'
 include ':lib_netWork'
 include ':modle_recommended'
 include ':lib_api'
+include ':modle_home'
+
