@@ -6,12 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/openEyes_ch"
+        android:layout_width="158dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:lines="3"
+        android:text="开眼，看更好的世界"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.359" />
+
+    <TextView
+        android:id="@+id/openEyes_en"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:text="FEED  YOUR  EYES  FEED  YOUR  SOUL"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openEyes_ch"
+        app:layout_constraintVertical_bias="0.105" />
+
+    <TextView
+        android:id="@+id/openEyes_big"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="开眼"
+        android:textSize="53dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openEyes_en"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/eye"
+        android:text="eyepetizer"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_anchor="@+id/openEyes_ch"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openEyes_big"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
