@@ -49,6 +49,10 @@ android {
             }
         }
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 kapt {
     arguments {
@@ -66,4 +70,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation(project(":model_hot"))
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation(project(":model_search"))
+    implementation(project(":modle_playground"))
+    implementation(project(":model_daily"))
+
 }

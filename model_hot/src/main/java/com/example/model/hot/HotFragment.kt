@@ -5,16 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.modle.hot.R
+import com.example.model.hot.databinding.FragmentHotBinding
 
 class HotFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-
+    private val mBinding: FragmentHotBinding by lazy{
+        FragmentHotBinding.inflate(layoutInflater)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_hot, container, false)
+        return mBinding.root
     }
 }

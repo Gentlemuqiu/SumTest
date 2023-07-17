@@ -8,11 +8,11 @@ if (!isDebug) {
     apply plugin: 'com.android.application'
 }
 android {
-    namespace 'com.example.modle.hot'
+    namespace 'com.example.model.hot'
     compileSdk app_sdk.compileSdk
     defaultConfig {
         if (isDebug) {
-            applicationId "com.example.modle.hot"
+            applicationId "com.example.model.hot"
         }
         minSdk app_sdk.minSdk
         targetSdk app_sdk.targetSdk
@@ -48,6 +48,10 @@ android {
                 }
             }
         }
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 }
 kapt {
