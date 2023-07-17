@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ARouter.getInstance().build("/home/HomeActivity/").navigation()
-         finish()
+        finish()
     }
 }

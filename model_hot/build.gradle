@@ -8,11 +8,11 @@ if (!isDebug) {
     apply plugin: 'com.android.application'
 }
 android {
-    namespace 'com.example.modle.home'
+    namespace 'com.example.modle.hot'
     compileSdk app_sdk.compileSdk
     defaultConfig {
         if (isDebug) {
-            applicationId "com.example.modle.home"
+            applicationId "com.example.modle.hot"
         }
         minSdk app_sdk.minSdk
         targetSdk app_sdk.targetSdk
@@ -58,12 +58,9 @@ kapt {
 
 dependencies {
     implementation(project(":lib_api"))
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
-    implementation(project(":model_hot"))
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 }

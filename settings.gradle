@@ -19,3 +19,4 @@ include ':modle_recommended'
 include ':lib_api'
 include ':modle_home'
 
+include ':model_hot'

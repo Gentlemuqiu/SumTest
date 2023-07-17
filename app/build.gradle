@@ -35,4 +35,6 @@ dependencies {
     implementation(project(":lib_api"))
     implementation(project(":lib_netWork"))
     implementation(project(":modle_home"))
+    implementation(project(":model_hot"))
+
 }
