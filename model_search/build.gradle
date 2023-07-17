@@ -1,0 +1,73 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+if (!isDebug) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+android {
+    namespace 'com.example.model.searh'
+    compileSdk app_sdk.compileSdk
+    defaultConfig {
+        if (isDebug) {
+            applicationId "com.example.model.search"
+        }
+        minSdk app_sdk.minSdk
+        targetSdk app_sdk.targetSdk
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    //源集 - 用来设定java目录或者资源目录
+    sourceSets {
+        main {
+            if (isDebug) {
+                //组件化模式
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+                java.srcDirs = ['src/main/debug', 'src/main/java']
+            } else {
+                //集成模式
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+
+                //排除掉debug包的信息
+                java {
+                    exclude 'src/main/debug'
+                }
+            }
+        }
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+}
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
+dependencies {
+    implementation(project(":lib_api"))
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+}

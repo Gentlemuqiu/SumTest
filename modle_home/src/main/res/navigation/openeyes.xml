@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/openeyes"
+    app:startDestination="@+id/item_hot">
+
+    <fragment
+        android:id="@+id/item_hot"
+        android:name="com.example.model.hot.HotFragment"
+        android:label="HotFragment" />
+    <fragment
+        android:id="@+id/item_daily"
+        android:name="com.example.model.daily.DailyFragment"
+        android:label="DailyFragment" />
+    <fragment
+        android:id="@+id/item_discover"
+        android:name="com.example.model.search.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/item_playGround"
+        android:name="com.example.modle_playground.PlayGroundFragment"
+        android:label="fragment_play_ground"
+        tools:layout="@layout/fragment_play_ground" />
+</navigation>

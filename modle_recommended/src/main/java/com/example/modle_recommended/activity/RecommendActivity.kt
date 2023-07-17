@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.modle_recommended.R
 import androidx.lifecycle.lifecycleScope
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.modle_recommended.adapter.recommendAdapter
 import com.example.modle_recommended.viewModel.RecommendViewModel
 import kotlinx.coroutines.channels.awaitClose
@@ -16,7 +17,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 class RecommendActivity : AppCompatActivity() {
     lateinit var adapter: recommendAdapter
     private val viewModel by viewModels<RecommendViewModel>()
