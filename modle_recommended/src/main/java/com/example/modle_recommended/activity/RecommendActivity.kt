@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class RecommendActivity : AppCompatActivity() {
+    lateinit var adapter: recommendAdapter
     private val viewModel by viewModels<RecommendViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +28,13 @@ class RecommendActivity : AppCompatActivity() {
             viewModel.setRecommend()
         }
         applicationContext?.let {
-            val adapter = recommendAdapter()
             viewModel.recommendList.observe(this, {
+                  adapter= recommendAdapter(it)
             })
         }
         findViewById<RecyclerView>(R.id.recyclerView).also {
             it.layoutManager = LinearLayoutManager(applicationContext)
-            it.adapter = recommendAdapter()
+            it.adapter=adapter
         }
     }
 }
