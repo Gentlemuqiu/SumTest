@@ -10,7 +10,7 @@
         android:title="广场" />
     <item
         android:id="@+id/item_discover"
-        android:icon="@drawable/home_shape_tab_discover"
+        android:icon="@drawable/home_shape_tab_discovery"
         android:title="发现" />
     <item
         android:id="@+id/item_hot"
