@@ -1,3 +1,4 @@
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -18,4 +19,6 @@ class HotChildAdapter(fragmentManager: FragmentManager?, lifecycle: Lifecycle?) 
     override fun getItemCount(): Int {
         return fragments.size
     }
+
+
 }

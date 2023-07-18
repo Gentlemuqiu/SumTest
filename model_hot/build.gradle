@@ -62,6 +62,9 @@ kapt {
 
 dependencies {
     implementation(project(":lib_api"))
+    implementation(project(":lib_netWork"))
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

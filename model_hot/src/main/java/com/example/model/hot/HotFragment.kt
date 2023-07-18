@@ -32,10 +32,11 @@ class HotFragment : Fragment() {
     }
 
     private fun initData() {
+        mBinding.vp2Content.isSaveEnabled = false
         nameList.add("周排行")
         nameList.add("月排行")
         nameList.add("总排行")
-        val adapter = HotChildAdapter(parentFragmentManager, lifecycle)
+        val adapter = HotChildAdapter(childFragmentManager, lifecycle)
         val monthFragment = MonthFragment()
         val allFragment=AllFragment()
         val weekFragment=WeekFragment()
