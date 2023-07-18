@@ -1,3 +1,4 @@
+/*
 package com.example.modle_recommended.adapter
 
 import android.view.LayoutInflater
@@ -7,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.modle_recommended.R
+import com.example.modle.play.R
 import com.example.modle_recommended.model.recommend
 
 class topRecommendAdapter(private val itemList: List<recommend.Item>) :
@@ -29,4 +30,4 @@ class topRecommendAdapter(private val itemList: List<recommend.Item>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
     }
-}
+}*/

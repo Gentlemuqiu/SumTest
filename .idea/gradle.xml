@@ -15,10 +15,10 @@
             <option value="$PROJECT_DIR$/lib_netWork" />
             <option value="$PROJECT_DIR$/model_daily" />
             <option value="$PROJECT_DIR$/model_hot" />
+            <option value="$PROJECT_DIR$/model_play" />
             <option value="$PROJECT_DIR$/model_search" />
             <option value="$PROJECT_DIR$/modle_home" />
             <option value="$PROJECT_DIR$/modle_playground" />
-            <option value="$PROJECT_DIR$/modle_recommended" />
           </set>
         </option>
       </GradleProjectSettings>

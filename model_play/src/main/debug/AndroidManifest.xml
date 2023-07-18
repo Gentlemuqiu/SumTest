@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-
+<uses-permission android:name="android.permission.INTERNET"/>
     <application>
         <activity
-            android:name="ui.TestRecommendActivity"
+            android:name="ui.TestPlayActivity"
             android:exported="true"
+            android:usesCleartextTraffic="true"
             android:theme="@style/Theme.SumTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
