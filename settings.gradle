@@ -15,7 +15,11 @@ dependencyResolutionManagement {
 rootProject.name = "SumTest"
 include ':app'
 include ':lib_netWork'
-include ':modle_recommended'
 include ':lib_api'
 include ':modle_home'
 
+include ':model_hot'
+include ':modle_playground'
+include ':model_search'
+include ':model_daily'
+include ':model_play'

@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace 'com.example.lib.network'
-    compileSdk 33
+    compileSdk app_sdk.compileSdk
 
     defaultConfig {
-        minSdk 24
-        targetSdk 33
+        minSdk app_sdk.minSdk
+        targetSdk app_sdk.targetSdk
     }
 
     buildTypes {

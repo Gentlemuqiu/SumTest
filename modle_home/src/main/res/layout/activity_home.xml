@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <fragment
+        android:id="@+id/openeyes"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/openeyes" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/mBottomNavigationView"
         android:layout_width="match_parent"
@@ -20,10 +28,10 @@
         android:background="@android:color/white"
         app:itemTextColor="@drawable/home_shape_tab_text"
         app:labelVisibilityMode="labeled"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:menu="@menu/home_menu_bottom_navigation" />
+        app:menu="@menu/home_menu_bottom_navigation">
+
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
