@@ -1,10 +1,6 @@
-package com.example.modle_recommended.model
-import android.os.Parcel
-import android.os.Parcelable
+
 import com.google.gson.annotations.SerializedName
-
-
-data class recommend(
+data class Recommend(
     @SerializedName("adExist")
     val adExist: Boolean, // false
     @SerializedName("count")
@@ -106,9 +102,9 @@ data class recommend(
             @SerializedName("reallyCollected")
             val reallyCollected: Boolean, // false
             @SerializedName("recallSource")
-            val recallSource: String,
+            val recallSource1: String,
             @SerializedName("recall_source")
-            val recall_Source: String,
+            val recallSource2: String,
             @SerializedName("releaseTime")
             val releaseTime: Long, // 1451102400000
             @SerializedName("remark")
@@ -147,68 +143,7 @@ data class recommend(
             val webAdTrack: Any, // null
             @SerializedName("webUrl")
             val webUrl: WebUrl
-        ) : Parcelable {
-            constructor(parcel: Parcel) : this(
-                parcel.readString()!!,
-                parcel.readByte() != 0.toByte(),
-                TODO("adTrack"),
-                TODO("author"),
-                TODO("brandWebsiteInfo"),
-                TODO("campaign"),
-                parcel.readString()!!,
-                parcel.readByte() != 0.toByte(),
-                TODO("consumption"),
-                TODO("content"),
-                parcel.readInt(),
-                TODO("cover"),
-                parcel.readString()!!,
-                parcel.readLong(),
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readInt(),
-                TODO("favoriteAdTrack"),
-                TODO("follow"),
-                TODO("footer"),
-                TODO("header"),
-                parcel.readInt(),
-                parcel.readInt(),
-                parcel.readByte() != 0.toByte(),
-                TODO("itemList"),
-                TODO("label"),
-                TODO("labelList"),
-                TODO("lastViewTime"),
-                parcel.readString()!!,
-                TODO("playInfo"),
-                parcel.readString()!!,
-                parcel.readByte() != 0.toByte(),
-                TODO("playlists"),
-                TODO("promotion"),
-                TODO("provider"),
-                parcel.readByte() != 0.toByte(),
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readLong(),
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readInt(),
-                TODO("shareAdTrack"),
-                TODO("slogan"),
-                parcel.readInt(),
-                TODO("subTitle"),
-                TODO("subtitles"),
-                TODO("tags"),
-                parcel.readString()!!,
-                TODO("thumbPlayUrl"),
-                parcel.readString()!!,
-                parcel.readString()!!,
-                parcel.readString()!!,
-                TODO("videoPosterBean"),
-                TODO("waterMarks"),
-                TODO("webAdTrack"),
-                TODO("webUrl")
-            )
-
+        ) {
             data class Author(
                 @SerializedName("adTrack")
                 val adTrack: Any, // null
@@ -227,7 +162,7 @@ data class recommend(
                 @SerializedName("ifPgc")
                 val ifPgc: Boolean, // true
                 @SerializedName("latestReleaseTime")
-                val latestReleaseTime: Long, // 1689210021000
+                val latestReleaseTime: Long, // 1689555624000
                 @SerializedName("link")
                 val link: String,
                 @SerializedName("name")
@@ -237,7 +172,7 @@ data class recommend(
                 @SerializedName("shield")
                 val shield: Shield,
                 @SerializedName("videoNum")
-                val videoNum: Int // 653
+                val videoNum: Int // 654
             ) {
                 data class Follow(
                     @SerializedName("followed")
@@ -264,9 +199,9 @@ data class recommend(
                 @SerializedName("realCollectionCount")
                 val realCollectionCount: Int, // 5936
                 @SerializedName("replyCount")
-                val replyCount: Int, // 694
+                val replyCount: Int, // 695
                 @SerializedName("shareCount")
-                val shareCount: Int // 57868
+                val shareCount: Int // 57879
             )
 
             data class Content(
@@ -345,9 +280,9 @@ data class recommend(
                     @SerializedName("reallyCollected")
                     val reallyCollected: Boolean, // false
                     @SerializedName("recallSource")
-                    val recallSource: String,
+                    val recallSource3: String,
                     @SerializedName("recall_source")
-                    val recall_Source: String,
+                    val recallSource4: String,
                     @SerializedName("releaseTime")
                     val releaseTime: Long, // 1488162878000
                     @SerializedName("remark")
@@ -440,7 +375,7 @@ data class recommend(
                         @SerializedName("replyCount")
                         val replyCount: Int, // 1270
                         @SerializedName("shareCount")
-                        val shareCount: Int // 104676
+                        val shareCount: Int // 104691
                     )
 
                     data class Cover(
@@ -451,7 +386,7 @@ data class recommend(
                         @SerializedName("feed")
                         val feed: String, // http://ali-img.kaiyanapp.com/3586a5420e4803557e221d5ebaeb8d04.png?imageMogr2/quality/60/format/jpg
                         @SerializedName("homepage")
-                        val homepage: Any, // null
+                        val homepage: String, // http://img.kaiyanapp.com/ef1a1d1b5e78c9e408779b96d18b73c5.jpeg?imageView2/1/w/720/h/560/format/jpg/q/75|watermark/1/image/aHR0cDovL2ltZy5rYWl5YW5hcHAuY29tL2JsYWNrXzMwLnBuZw==/dissolve/100/gravity/Center/dx/0/dy/0|imageslim
                         @SerializedName("sharing")
                         val sharing: Any // null
                     )
@@ -575,7 +510,7 @@ data class recommend(
                 @SerializedName("showHateVideo")
                 val showHateVideo: Boolean, // false
                 @SerializedName("subTitle")
-                val subTitle: String, // SATURDAY, JULY 15
+                val subTitle: String, // TUESDAY, JULY 18
                 @SerializedName("subTitleFont")
                 val subTitleFont: String, // lobster
                 @SerializedName("textAlign")
@@ -646,19 +581,19 @@ data class recommend(
                             @SerializedName("dataType")
                             val dataType: String, // VideoBeanForClient
                             @SerializedName("date")
-                            val date: Long, // 1689382800000
+                            val date: Long, // 1689642000000
                             @SerializedName("description")
-                            val description: String, // 作者在帕瑞纳天文台度过了一个完整的夜晚来延时拍摄美丽的星空，薄薄的云层在明亮的星星上营造出明亮的钻石效果。帕瑞纳天文台是欧洲南方天文台在智利安托法加斯塔以南约 120 千米的帕瑞纳山的观测地，这里海拔 2632 米，距离海岸线约 12 千米，气候干燥，没有灯光干扰，全年中晴夜数量多于 340 个，是世界上最好的天文观测地之一。 From Boris Häußler
+                            val description: String, // 跟随作者的镜头，来到美国作家海明威的小说「老人与海」故事的背景地——哈瓦那，在这里，古典与现代发生碰撞，复古的老爷车，揽客的街溜子，五彩的房屋，随处晾晒的衣物，以及属于古巴的 mojito，雪茄和酒馆贯穿彻夜的南美歌声。哈瓦那是古巴的首都，被誉为「加勒比海的明珠」，位于佛罗里达群岛以南，墨西哥湾在此与大西洋相连。 From Feodor Bobkin
                             @SerializedName("descriptionEditor")
-                            val descriptionEditor: String, // 作者在帕瑞纳天文台度过了一个完整的夜晚来延时拍摄美丽的星空，薄薄的云层在明亮的星星上营造出明亮的钻石效果。帕瑞纳天文台是欧洲南方天文台在智利安托法加斯塔以南约 120 千米的帕瑞纳山的观测地，这里海拔 2632 米，距离海岸线约 12 千米，气候干燥，没有灯光干扰，全年中晴夜数量多于 340 个，是世界上最好的天文观测地之一。 From Boris Häußler
+                            val descriptionEditor: String, // 跟随作者的镜头，来到美国作家海明威的小说「老人与海」故事的背景地——哈瓦那，在这里，古典与现代发生碰撞，复古的老爷车，揽客的街溜子，五彩的房屋，随处晾晒的衣物，以及属于古巴的 mojito，雪茄和酒馆贯穿彻夜的南美歌声。哈瓦那是古巴的首都，被誉为「加勒比海的明珠」，位于佛罗里达群岛以南，墨西哥湾在此与大西洋相连。 From Feodor Bobkin
                             @SerializedName("descriptionPgc")
                             val descriptionPgc: String,
                             @SerializedName("duration")
-                            val duration: Int, // 81
+                            val duration: Int, // 55
                             @SerializedName("favoriteAdTrack")
                             val favoriteAdTrack: Any, // null
                             @SerializedName("id")
-                            val id: Int, // 318892
+                            val id: Int, // 318998
                             @SerializedName("idx")
                             val idx: Int, // 0
                             @SerializedName("ifLimitVideo")
@@ -674,7 +609,7 @@ data class recommend(
                             @SerializedName("playInfo")
                             val playInfo: List<PlayInfo>,
                             @SerializedName("playUrl")
-                            val playUrl: String, // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=318892&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss&udid=
+                            val playUrl: String, // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=318998&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss&udid=
                             @SerializedName("played")
                             val played: Boolean, // false
                             @SerializedName("playlists")
@@ -686,13 +621,13 @@ data class recommend(
                             @SerializedName("reallyCollected")
                             val reallyCollected: Boolean, // false
                             @SerializedName("recallSource")
-                            val recallSource: Any, // null
+                            val recallSource5: Any, // null
                             @SerializedName("recall_source")
-                            val recall_Source: Any, // null
+                            val recallSource6: Any, // null
                             @SerializedName("releaseTime")
-                            val releaseTime: Long, // 1689382801000
+                            val releaseTime: Long, // 1689642001000
                             @SerializedName("remark")
-                            val remark: String,
+                            val remark: String, // https://www.meihua.info/shots/5327344077194240
                             @SerializedName("resourceType")
                             val resourceType: String, // video
                             @SerializedName("searchWeight")
@@ -700,7 +635,7 @@ data class recommend(
                             @SerializedName("shareAdTrack")
                             val shareAdTrack: Any, // null
                             @SerializedName("slogan")
-                            val slogan: String,
+                            val slogan: Any, // null
                             @SerializedName("src")
                             val src: Any, // null
                             @SerializedName("subtitles")
@@ -708,11 +643,11 @@ data class recommend(
                             @SerializedName("tags")
                             val tags: List<Tag>,
                             @SerializedName("thumbPlayUrl")
-                            val thumbPlayUrl: String,
+                            val thumbPlayUrl: Any, // null
                             @SerializedName("title")
-                            val title: String, // 璀璨「星空」之下，漫天萤火飞舞
+                            val title: String, // 加勒比海的明珠，情迷「哈瓦那」
                             @SerializedName("titlePgc")
-                            val titlePgc: String,
+                            val titlePgc: String, // 旅行
                             @SerializedName("type")
                             val type: String, // NORMAL
                             @SerializedName("videoPosterBean")
@@ -742,7 +677,7 @@ data class recommend(
                                 @SerializedName("ifPgc")
                                 val ifPgc: Boolean, // true
                                 @SerializedName("latestReleaseTime")
-                                val latestReleaseTime: Long, // 1689382801000
+                                val latestReleaseTime: Long, // 1689642001000
                                 @SerializedName("link")
                                 val link: String,
                                 @SerializedName("name")
@@ -752,7 +687,7 @@ data class recommend(
                                 @SerializedName("shield")
                                 val shield: Shield,
                                 @SerializedName("videoNum")
-                                val videoNum: Int // 2780
+                                val videoNum: Int // 2783
                             ) {
                                 data class Follow(
                                     @SerializedName("followed")
@@ -775,24 +710,24 @@ data class recommend(
 
                             data class Consumption(
                                 @SerializedName("collectionCount")
-                                val collectionCount: Int, // 155
+                                val collectionCount: Int, // 45
                                 @SerializedName("realCollectionCount")
-                                val realCollectionCount: Int, // 87
+                                val realCollectionCount: Int, // 52
                                 @SerializedName("replyCount")
-                                val replyCount: Int, // 8
+                                val replyCount: Int, // 4
                                 @SerializedName("shareCount")
-                                val shareCount: Int // 52
+                                val shareCount: Int // 15
                             )
 
                             data class Cover(
                                 @SerializedName("blurred")
-                                val blurred: String, // http://ali-img.kaiyanapp.com/9bafdacb6a84c6ebad103e40f0f01436.jpeg?imageMogr2/quality/60/format/jpg
+                                val blurred: String, // http://ali-img.kaiyanapp.com/4d78cfe724cc3f9a0d4efeefcbf82b11.jpeg?imageMogr2/quality/60/format/jpg
                                 @SerializedName("detail")
-                                val detail: String, // http://ali-img.kaiyanapp.com/c538f8e11c2b8a1cf59bbbc94b5be272.jpeg?imageMogr2/quality/60/format/jpg
+                                val detail: String, // http://ali-img.kaiyanapp.com/6a674600b02a37036e45eb81e4768a0e.jpeg?imageMogr2/quality/60/format/jpg
                                 @SerializedName("feed")
-                                val feed: String, // http://ali-img.kaiyanapp.com/c538f8e11c2b8a1cf59bbbc94b5be272.jpeg?imageMogr2/quality/60/format/jpg
+                                val feed: String, // http://ali-img.kaiyanapp.com/6a674600b02a37036e45eb81e4768a0e.jpeg?imageMogr2/quality/60/format/jpg
                                 @SerializedName("homepage")
-                                val homepage: String, // http://img.kaiyanapp.com/c538f8e11c2b8a1cf59bbbc94b5be272.jpeg?imageView2/1/w/720/h/560/format/jpg/q/75|watermark/1/image/aHR0cDovL2ltZy5rYWl5YW5hcHAuY29tL2JsYWNrXzMwLnBuZw==/dissolve/100/gravity/Center/dx/0/dy/0|imageslim
+                                val homepage: String, // http://img.kaiyanapp.com/6a674600b02a37036e45eb81e4768a0e.jpeg?imageView2/1/w/720/h/560/format/jpg/q/75|watermark/1/image/aHR0cDovL2ltZy5rYWl5YW5hcHAuY29tL2JsYWNrXzMwLnBuZw==/dissolve/100/gravity/Center/dx/0/dy/0|imageslim
                                 @SerializedName("sharing")
                                 val sharing: Any // null
                             )
@@ -805,7 +740,7 @@ data class recommend(
                                 @SerializedName("type")
                                 val type: String, // high
                                 @SerializedName("url")
-                                val url: String, // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=318963&resourceType=video&editionType=high&source=aliyun&playUrlType=url_oss&udid=
+                                val url: String, // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=318995&resourceType=video&editionType=high&source=aliyun&playUrlType=url_oss&udid=
                                 @SerializedName("urlList")
                                 val urlList: List<Url>,
                                 @SerializedName("width")
@@ -815,9 +750,9 @@ data class recommend(
                                     @SerializedName("name")
                                     val name: String, // aliyun
                                     @SerializedName("size")
-                                    val size: Int, // 2299222
+                                    val size: Int, // 22925264
                                     @SerializedName("url")
-                                    val url: String // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=318963&resourceType=video&editionType=high&source=aliyun&playUrlType=url_oss&udid=
+                                    val url: String // http://baobab.kaiyanapp.com/api/v1/playUrl?vid=318995&resourceType=video&editionType=high&source=aliyun&playUrlType=url_oss&udid=
                                 )
                             }
 
@@ -863,9 +798,9 @@ data class recommend(
 
                             data class WebUrl(
                                 @SerializedName("forWeibo")
-                                val forWeibo: String, // https://m.eyepetizer.net/u1/video-detail?video_id=318892&resource_type=video&utm_campaign=routine&utm_medium=share&utm_source=weibo&uid=0
+                                val forWeibo: String, // https://m.eyepetizer.net/u1/video-detail?video_id=318998&resource_type=video&utm_campaign=routine&utm_medium=share&utm_source=weibo&uid=0
                                 @SerializedName("raw")
-                                val raw: String // http://www.eyepetizer.net/detail.html?vid=318892
+                                val raw: String // http://www.eyepetizer.net/detail.html?vid=318998
                             )
                         }
                     }
@@ -876,7 +811,7 @@ data class recommend(
                         @SerializedName("cover")
                         val cover: Any, // null
                         @SerializedName("description")
-                        val description: String,
+                        val description: Any, // null
                         @SerializedName("font")
                         val font: Any, // null
                         @SerializedName("icon")
@@ -884,7 +819,7 @@ data class recommend(
                         @SerializedName("iconType")
                         val iconType: String, // round
                         @SerializedName("id")
-                        val id: Int, // 318892
+                        val id: Int, // 318998
                         @SerializedName("label")
                         val label: Any, // null
                         @SerializedName("labelList")
@@ -900,9 +835,9 @@ data class recommend(
                         @SerializedName("textAlign")
                         val textAlign: String, // left
                         @SerializedName("time")
-                        val time: Long, // 1689382801000
+                        val time: Long, // 1689642001000
                         @SerializedName("title")
-                        val title: String // 璀璨「星空」之下，漫天萤火飞舞
+                        val title: String // 加勒比海的明珠，情迷「哈瓦那」
                     )
                 }
             }
@@ -986,52 +921,6 @@ data class recommend(
                 @SerializedName("raw")
                 val raw: String // http://www.eyepetizer.net/detail.html?vid=3284
             )
-
-            override fun writeToParcel(parcel: Parcel, flags: Int) {
-                parcel.writeString(actionUrl)
-                parcel.writeByte(if (ad) 1 else 0)
-                parcel.writeString(category)
-                parcel.writeByte(if (collected) 1 else 0)
-                parcel.writeInt(count)
-                parcel.writeString(dataType)
-                parcel.writeLong(date)
-                parcel.writeString(description)
-                parcel.writeString(descriptionEditor)
-                parcel.writeString(descriptionPgc)
-                parcel.writeInt(duration)
-                parcel.writeInt(id)
-                parcel.writeInt(idx)
-                parcel.writeByte(if (ifLimitVideo) 1 else 0)
-                parcel.writeString(library)
-                parcel.writeString(playUrl)
-                parcel.writeByte(if (played) 1 else 0)
-                parcel.writeByte(if (reallyCollected) 1 else 0)
-                parcel.writeString(recallSource)
-                parcel.writeString(recallSource)
-                parcel.writeLong(releaseTime)
-                parcel.writeString(remark)
-                parcel.writeString(resourceType)
-                parcel.writeInt(searchWeight)
-                parcel.writeInt(src)
-                parcel.writeString(text)
-                parcel.writeString(title)
-                parcel.writeString(titlePgc)
-                parcel.writeString(type)
-            }
-
-            override fun describeContents(): Int {
-                return 0
-            }
-
-            companion object CREATOR : Parcelable.Creator<Data> {
-                override fun createFromParcel(parcel: Parcel): Data {
-                    return Data(parcel)
-                }
-
-                override fun newArray(size: Int): Array<Data?> {
-                    return arrayOfNulls(size)
-                }
-            }
         }
     }
 }

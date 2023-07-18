@@ -8,11 +8,11 @@ if (!isDebug) {
     apply plugin: 'com.android.application'
 }
 android {
-    namespace 'com.example.modle_recommended'
+    namespace 'com.example.modle.play'
     compileSdk app_sdk.compileSdk
     defaultConfig {
         if (isDebug) {
-            applicationId "com.example.modle_recommended"
+            applicationId "com.example.modle.play"
         }
         minSdk app_sdk.minSdk
         targetSdk app_sdk.targetSdk
@@ -49,6 +49,10 @@ android {
             }
         }
     }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
 }
 kapt {
     arguments {
@@ -60,6 +64,9 @@ dependencies {
     implementation(project(":lib_api"))
     implementation(project(":lib_netWork"))
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.5.0"
     implementation 'androidx.activity:activity-ktx:1.7.2'
     implementation 'androidx.fragment:fragment-ktx:1.6.0'
     implementation 'androidx.paging:paging-runtime:3.1.1'

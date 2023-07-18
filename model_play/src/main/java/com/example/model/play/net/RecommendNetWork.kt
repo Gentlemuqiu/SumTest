@@ -1,6 +1,7 @@
-package com.example.modle_recommended.net
+package com.example.model.play.net
 
 import com.example.lib.network.ServiceCreator
+
 import retrofit2.await
 
 object RecommendNetWork {
