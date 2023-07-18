@@ -1,25 +1,21 @@
-package com.example.model.hot.ChildApapter
-
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class HotChildAdapter(
-    fm: FragmentManager,
-    private val mFragments: List<Fragment>,
-    private val mTitleName: List<String>
-) :
-    FragmentStatePagerAdapter(fm) {
-    override fun getItem(position: Int): Fragment {
-        return mFragments[position]
+
+class HotChildAdapter(fragmentManager: FragmentManager?, lifecycle: Lifecycle?) :
+    FragmentStateAdapter(fragmentManager!!, lifecycle!!) {
+    private val fragments: MutableList<Fragment> = ArrayList<Fragment>()
+    fun addFragment(fragment: Fragment) {
+        fragments.add(fragment)
     }
 
-    override fun getCount(): Int {
-        return mTitleName.size
+    override fun createFragment(position: Int): Fragment {
+        return fragments[position]
     }
 
-    //显示title
-    override fun getPageTitle(position: Int): CharSequence? {
-        return mTitleName[position]
+    override fun getItemCount(): Int {
+        return fragments.size
     }
 }
