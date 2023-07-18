@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,14 +10,16 @@
         android:id="@+id/tab_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="auto" />
+        app:tabIndicatorColor="@android:color/white"
+        app:tabTextColor="?attr/colorPrimary"
+        app:tabMode="auto"
+        app:tabSelectedTextColor="#FF76D1FF" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:layout_marginTop="50dp"
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp2_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 
-</FrameLayout>
+</LinearLayout>
