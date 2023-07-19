@@ -44,6 +44,7 @@ class WeekFragment : Fragment() {
             weekViewModel.getWeekRanking()
             //将刷新状态取消
             mBinding.swipeRefresh.isRefreshing = false
+            activity
         }
     }
 
