@@ -39,12 +39,11 @@ class WeekFragment : Fragment() {
     }
 
     private fun doRefresh() {
-        mBinding.swipeRefresh.setOnRefreshListener {
+        mBinding.swipeRefresh1.setOnRefreshListener {
             //刷新时,再次请求一次数据
             weekViewModel.getWeekRanking()
             //将刷新状态取消
-            mBinding.swipeRefresh.isRefreshing = false
-            activity
+            mBinding.swipeRefresh1.isRefreshing = false
         }
     }
 
