@@ -1,13 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <FrameLayout
+        android:id="@+id/search_block"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="发现" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <com.example.model.search.SuperEditText
+        android:id="@+id/et_search"
+        android:layout_width="360dp"
+        android:layout_height="48dp"
+        android:drawablePadding="8dp"
+        android:layout_marginStart="10dp"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:hint="搜索视频、作者、用户及标签"/>
+        <TextView
+            android:id="@+id/search_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_gravity="end"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:text="取消"/>
+    </FrameLayout>
+    
+    <LinearLayout
+        android:id="@+id/search_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
-</FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="搜索记录"
+                android:layout_marginStart="20dp"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="删除记录"
+                android:layout_marginEnd="20dp"
+                android:textSize="16sp"
+                android:layout_gravity="end"/>
+
+        </FrameLayout>
+    <com.example.model.search.SearchHistory
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
