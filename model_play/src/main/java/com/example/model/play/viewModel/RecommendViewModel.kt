@@ -1,10 +1,9 @@
 package com.example.model.play.viewModel
-
-import Recommend
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.model.play.model.Recommend
 import com.example.model.play.net.RecommendNetWork
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -21,9 +20,10 @@ class RecommendViewModel() : ViewModel() {
                 val list = RecommendNetWork.getRecommend()
                 emit(list)
             }.flowOn(Dispatchers.IO)
-                .catch {e -> e.printStackTrace()   }
-                .collect { result ->
-                    _recommendData.value = result
+                .catch {e -> e.printStackTrace()
+                }
+                .collect {
+                    _recommendData.value=it
                 }
         }
     }

@@ -1,7 +1,6 @@
 package com.example.model.play.net
 
-import Recommend
-import kotlinx.coroutines.flow.Flow
+import com.example.model.play.model.Recommend
 import retrofit2.Call
 import retrofit2.http.GET
 

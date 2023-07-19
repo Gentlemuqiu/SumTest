@@ -62,8 +62,6 @@ kapt {
 
 dependencies {
     implementation(project(":lib_api"))
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -73,5 +71,15 @@ dependencies {
     implementation(project(":model_search"))
     implementation(project(":modle_playground"))
     implementation(project(":model_daily"))
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.5.0"
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.0'
+    implementation 'androidx.paging:paging-runtime:3.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }

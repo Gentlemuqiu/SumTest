@@ -1,22 +1,14 @@
 package com.example.modle.home
 
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.model.daily.DailyFragment
 import com.example.model.hot.HotFragment
 import com.example.model.search.SearchFragment
 import com.example.modle.home.databinding.ActivityHomeBinding
 import com.example.modle_playground.PlayGroundFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 
 @Route(path = "/home/HomeActivity/")
 class HomeActivity : AppCompatActivity() {

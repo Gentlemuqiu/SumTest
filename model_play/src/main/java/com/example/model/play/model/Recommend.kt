@@ -1,4 +1,4 @@
-
+package com.example.model.play.model
 import com.google.gson.annotations.SerializedName
 data class Recommend(
     @SerializedName("adExist")
