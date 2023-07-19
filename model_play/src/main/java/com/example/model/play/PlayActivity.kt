@@ -1,6 +1,5 @@
 package com.example.model.play
 
-import Recommend
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +13,6 @@ class PlayActivity : AppCompatActivity() {
         ActivityPlayBinding.inflate(layoutInflater)
     }
     private val recommendViewModel by lazy { ViewModelProvider(this)[RecommendViewModel::class.java] }
-    private lateinit var list: MutableList<Recommend>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
@@ -22,11 +20,6 @@ class PlayActivity : AppCompatActivity() {
 
         recommendViewModel.recommendData.observe(this, Observer {
             Log.d("hui", "onCreate: ${it}")
-            list.add(it)
         })
-        mBinding.hello.setOnClickListener({
-            Log.d("hui", "onCreate: ${list.get(0)}")
-        }
-        )
     }
 }

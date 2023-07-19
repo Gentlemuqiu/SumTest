@@ -62,6 +62,8 @@ kapt {
 
 dependencies {
     implementation(project(":lib_api"))
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
     kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
