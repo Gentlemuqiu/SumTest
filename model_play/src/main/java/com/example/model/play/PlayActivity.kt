@@ -23,7 +23,7 @@ class PlayActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = resources.getColor(R.color.black) // 将R.color.black替换为你想要的颜色值
+        window.statusBarColor = resources.getColor(R.color.black)
         val BASE_URL =
             "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=223296&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss&udid="
         val controller = StandardVideoController(this)
