@@ -7,14 +7,12 @@
     android:background="@color/black"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.1"
         android:scaleType="centerCrop"
-        android:src="@drawable/bk" />
+        android:background="@color/grey" />
 
     <xyz.doikki.videoplayer.player.VideoView
         android:id="@+id/player"

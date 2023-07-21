@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />    <application>
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
+    <application>
         <activity
             android:name="ui.TestPlayActivity"
-            android:exported="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:usesCleartextTraffic="true"
-            android:theme="@style/Theme.SumTest">
+            android:theme="@style/Theme.SumTest"
+            android:usesCleartextTraffic="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

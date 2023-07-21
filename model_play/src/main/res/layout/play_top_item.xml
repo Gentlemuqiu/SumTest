@@ -60,7 +60,7 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        app:drawableLeftCompat="@drawable/share_icon"
+        app:drawableLeftCompat="@drawable/play_share_icon"
         app:layout_constraintStart_toEndOf="@+id/tv_play_like"
         app:layout_constraintTop_toBottomOf="@+id/tv_play_description"
         tools:text="41351" />
@@ -78,10 +78,11 @@
         tools:text="121241" />
 
     <TextView
-        android:textSize="20dp"
+        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="相关视频"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

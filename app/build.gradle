@@ -40,5 +40,5 @@ dependencies {
     implementation(project(":lib_netWork"))
     implementation(project(":modle_home"))
     implementation(project(":model_hot"))
-
+    implementation(project(":model_play"))
 }
