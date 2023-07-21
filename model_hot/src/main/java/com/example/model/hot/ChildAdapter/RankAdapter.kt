@@ -1,6 +1,8 @@
 package com.example.model.hot.ChildAdapter
 
 import Share
+
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.lib.api.formatNumberToTime
 import com.example.model.hot.R
@@ -20,43 +23,80 @@ import com.example.model.hot.model.Ranking
 class RankAdapter(private val context: Fragment) :
     ListAdapter<Ranking.Item, RankAdapter.ViewHolder>(
         object : DiffUtil.ItemCallback<Ranking.Item>() {
-            override fun areItemsTheSame(oldItem: Ranking.Item, newItem: Ranking.Item): Boolean {
+            override fun areItemsTheSame(
+                oldItem: Ranking.Item,
+                newItem: Ranking.Item
+            ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: Ranking.Item, newItem: Ranking.Item): Boolean {
+            override fun areContentsTheSame(
+                oldItem: Ranking.Item,
+                newItem: Ranking.Item
+            ): Boolean {
                 return oldItem == newItem
             }
         }
     ) {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val playImage: ImageView = view.findViewById(R.id.rank_play)
-        val iconImage: ImageView = view.findViewById(R.id.rank_icon)
-        val titleText: TextView = view.findViewById(R.id.rank_title)
-        val authorText: TextView = view.findViewById(R.id.rank_author)
-        val timeText: TextView = view.findViewById(R.id.rank_time)
-        val shareButton: Button = view.findViewById(R.id.share)
+        val playImage: ImageView
+        val iconImage: ImageView
+        val titleText: TextView
+        val authorText: TextView
+        val timeText: TextView
+        private val shareButton: Button
 
         init {
+            view.run {
+                playImage = findViewById(R.id.rank_play)
+                iconImage = findViewById(R.id.rank_icon)
+                titleText = findViewById(R.id.rank_title)
+                authorText = findViewById(R.id.rank_author)
+                timeText = findViewById(R.id.rank_time)
+                shareButton = findViewById(R.id.share)
+            }
             shareButton.setOnClickListener {
                 Share(context)
+            }
+            playImage.setOnClickListener {
+                getItem(absoluteAdapterPosition).run {
+                    ARouter.getInstance().build("/play/PlayActivity/")
+                        .withString("playUrl", data.playUrl)
+                        .withString("title", data.title)
+                        .withString("description",data.description)
+                        .withString("category", data.category)
+                        .withInt("shareCount", data.consumption.shareCount)
+                        .withInt("likeCount", data.consumption.realCollectionCount)
+                        .withInt("commentCount", data.consumption.replyCount)
+                        .withInt("id", data.id)
+                        .navigation(context.activity?.application?.applicationContext)
+                }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.recycler_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val rank = getItem(position)
-        Glide.with(context).load(rank.data.cover.detail).into(holder.playImage)
-        Glide.with(context).load(rank.data.author.icon).into(holder.iconImage)
-        holder.titleText.text = rank.data.title
-        holder.authorText.text = rank.data.author.name
-        holder.timeText.text = formatNumberToTime(rank.data.duration)
+        holder.run {
+            getItem(position).run {
+                Glide.with(itemView).load(data.cover.detail).into(holder.playImage)
+                Glide.with(itemView).load(data.author.icon).into(holder.iconImage)
+                titleText.text = data.title
+                authorText.text = data.author.name
+                timeText.text = formatNumberToTime(data.duration)
+            }
+        }
+
+
     }
 }

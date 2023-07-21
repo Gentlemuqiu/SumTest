@@ -2,10 +2,15 @@ package com.example.model.play
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
-import com.example.modle.play.R
-import com.example.modle.play.databinding.ActivityPlayBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.example.model.play.Adapter.TopAdapter
+import com.example.model.play.ViewModel.RelatedViewModel
+import com.example.model.play.databinding.ActivityPlayBinding
 import xyz.doikki.videocontroller.StandardVideoController
 import xyz.doikki.videocontroller.component.CompleteView
 import xyz.doikki.videocontroller.component.ErrorView
@@ -13,19 +18,52 @@ import xyz.doikki.videocontroller.component.GestureView
 import xyz.doikki.videocontroller.component.VodControlView
 import xyz.doikki.videoplayer.player.VideoView
 
+@Route(path = "/play/PlayActivity/")
 class PlayActivity : AppCompatActivity() {
     private val mBinding: ActivityPlayBinding by lazy {
         ActivityPlayBinding.inflate(layoutInflater)
     }
+    private val relatedViewModel by lazy { ViewModelProvider(this)[RelatedViewModel::class.java] }
 
+    private lateinit var topAdapter: TopAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
+        initWindow()
+        val playUrl = intent.getStringExtra("playUrl")
+        val title = intent.getStringExtra("title")
+        val description = intent.getStringExtra("description")
+        val category = intent.getStringExtra("category")
+        val shareCount = intent.getIntExtra("shareCount", 0)
+        val likeCount = intent.getIntExtra("likeCount", 0)
+        val commentCount = intent.getIntExtra("commentCount", 0)
+        val id = intent.getIntExtra("id", 0)
+        mBinding.tvPlayTitle.text = title
+        mBinding.tvPlayDescription.text = description
+        mBinding.tvPlayCategory.text = category
+        mBinding.tvPlayShare.text = shareCount.toString()
+        mBinding.tvPlayLike.text = likeCount.toString()
+        mBinding.tvPlayComment.text = commentCount.toString()
+        relatedViewModel.getRelated(id)
+        topAdapter = TopAdapter()
+        relatedViewModel.relatedData.observe(this) {
+            val list=it.itemList.filter { element ->
+                element.type=="videoSmallCard"
+            }
+            topAdapter.submitList(list)
+        }
+        mBinding.rvPlay.layoutManager = LinearLayoutManager(this)
+        mBinding.rvPlay.adapter = topAdapter
+        initPlayer(playUrl!!)
+    }
+
+    private fun initWindow() {
         val window: Window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = resources.getColor(R.color.black)
-        val BASE_URL =
-            "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=223296&resourceType=video&editionType=default&source=aliyun&playUrlType=url_oss&udid="
+    }
+
+    private fun initPlayer(url: String) {
         val controller = StandardVideoController(this)
         controller.addDefaultControlComponent("标题", false)
         controller.setEnableOrientation(false)
@@ -35,7 +73,7 @@ class PlayActivity : AppCompatActivity() {
         controller.addControlComponent(VodControlView(this))
         mBinding.player.setVideoController(controller) //设置控制器
         mBinding.player.setScreenScaleType(VideoView.SCREEN_SCALE_16_9)
-        mBinding.player.setUrl(BASE_URL) //设置视频地址
+        mBinding.player.setUrl(url) //设置视频地址
         mBinding.player.release()
         mBinding.player.start() //开始播放，不调用则不自动播放
     }
