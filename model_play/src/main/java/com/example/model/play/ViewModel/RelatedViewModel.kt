@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class RelatedViewModel() : ViewModel() {
     private val _relatedData = MutableLiveData<Related>()
     val relatedData: LiveData<Related> get() = _relatedData
-    fun getMonthRanking(id : Int){
+    fun getRelated(id : Int){
         viewModelScope.launch {
             flow{
                 val list= RelatedNetWork.getRelated(id)

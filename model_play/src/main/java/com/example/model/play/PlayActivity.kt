@@ -38,36 +38,23 @@ class PlayActivity : AppCompatActivity() {
         val likeCount = intent.getIntExtra("likeCount", 0)
         val commentCount = intent.getIntExtra("commentCount", 0)
         val id = intent.getIntExtra("id", 0)
-        relatedViewModel.getMonthRanking(id)
-        doRefresh(id)
-        topAdapter =
-            TopAdapter(
-                title!!,
-                description!!,
-                category!!,
-                shareCount,
-                likeCount,
-                commentCount,
-                null
-            )
-        mBinding.rvPlay.adapter = topAdapter
-        mBinding.rvPlay.layoutManager = LinearLayoutManager(this)
-        Log.d("hui", "onCreate: 你好")
-        initPlayer(playUrl!!)
-    }
-
-    private fun doRefresh(id: Int) {
-        mBinding.swipeRefreshLayout.setOnRefreshListener {
-            relatedViewModel.relatedData.observe(this) {
-                topAdapter.list =it.itemList
-
+        mBinding.tvPlayTitle.text = title
+        mBinding.tvPlayDescription.text = description
+        mBinding.tvPlayCategory.text = category
+        mBinding.tvPlayShare.text = shareCount.toString()
+        mBinding.tvPlayLike.text = likeCount.toString()
+        mBinding.tvPlayComment.text = commentCount.toString()
+        relatedViewModel.getRelated(id)
+        topAdapter = TopAdapter()
+        relatedViewModel.relatedData.observe(this) {
+            val list=it.itemList.filter { element ->
+                element.type=="videoSmallCard"
             }
-            mBinding.rvPlay.adapter = topAdapter
-            //刷新时再次请求数据
-            relatedViewModel.getMonthRanking(id)
-            //将刷新状态取消
-            mBinding.swipeRefreshLayout.isRefreshing = false
+            topAdapter.submitList(list)
         }
+        mBinding.rvPlay.layoutManager = LinearLayoutManager(this)
+        mBinding.rvPlay.adapter = topAdapter
+        initPlayer(playUrl!!)
     }
 
     private fun initWindow() {
