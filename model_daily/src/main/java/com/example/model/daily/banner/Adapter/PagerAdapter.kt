@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.model.daily.R
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.net.model.Story
 
 /**
  *author：石良昊
@@ -45,7 +45,7 @@ class PagerAdapter(private val context: Fragment) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val storyItem = getItem(position )
+        val storyItem = getItem(position)
         if ( position == 0 || position == 11){}
         else {
             Glide.with(context).load(storyItem.data.content.data.cover.feed).into(holder.image)
