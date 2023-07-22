@@ -88,8 +88,8 @@ class RankAdapter(private val context: Fragment) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.run {
             getItem(position).run {
-                Glide.with(itemView).load(data.cover.detail).into(holder.playImage)
-                Glide.with(itemView).load(data.author.icon).into(holder.iconImage)
+                Glide.with(itemView).load(data.cover.detail).into(playImage)
+                Glide.with(itemView).load(data.author.icon).into(iconImage)
                 titleText.text = data.title
                 authorText.text = data.author.name
                 timeText.text = formatNumberToTime(data.duration)
