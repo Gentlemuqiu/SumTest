@@ -61,6 +61,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":model_play"))
     implementation(project(":lib_api"))
     kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
     implementation 'androidx.core:core-ktx:1.8.0'

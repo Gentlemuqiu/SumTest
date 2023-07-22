@@ -1,6 +1,6 @@
 package com.example.model.hot
 
-import HotChildAdapter
+import com.example.model.hot.ChildApapter.HotChildAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -8,11 +8,11 @@ if (!isDebug) {
     apply plugin: 'com.android.application'
 }
 android {
-    namespace 'com.example.modle.play'
+    namespace 'com.example.model.play'
     compileSdk app_sdk.compileSdk
     defaultConfig {
         if (isDebug) {
-            applicationId "com.example.modle.play"
+            applicationId "com.example.model.play"
         }
         minSdk app_sdk.minSdk
         targetSdk app_sdk.targetSdk
@@ -63,13 +63,11 @@ kapt {
 dependencies {
     implementation(project(":lib_api"))
     implementation(project(":lib_netWork"))
-
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.5.0"
     implementation 'androidx.activity:activity-ktx:1.7.2'
     implementation 'androidx.fragment:fragment-ktx:1.6.0'
-    implementation 'androidx.paging:paging-runtime:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
@@ -82,4 +80,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+    implementation("xyz.doikki.android.dkplayer:dkplayer-java:3.3.6")
+    implementation("xyz.doikki.android.dkplayer:player-exo:3.3.6")
+    implementation("xyz.doikki.android.dkplayer:player-ijk:3.3.6")
+    implementation("xyz.doikki.android.dkplayer:dkplayer-ui:3.3.6")
+    kapt "com.alibaba:arouter-compiler:$versions.arouter_version"
+
 }
