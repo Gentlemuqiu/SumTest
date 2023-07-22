@@ -124,15 +124,22 @@
                 tools:layout_editor_absoluteX="16dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/loser"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="marquee"
                 android:padding="15dp"
-                android:textSize="25sp"
+                android:singleLine="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="-1"
+                android:text="人家也是有底线的啦........."
                 android:textColor="@color/white"
+                android:textSize="25sp"
+                android:background="@drawable/text_shape"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_play"
-                android:text="人家也是有底线的啦........." />
+                app:layout_constraintTop_toBottomOf="@+id/rv_play" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

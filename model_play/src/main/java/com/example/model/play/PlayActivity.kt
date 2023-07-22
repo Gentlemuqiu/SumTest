@@ -38,12 +38,15 @@ class PlayActivity : AppCompatActivity() {
         val likeCount = intent.getIntExtra("likeCount", 0)
         val commentCount = intent.getIntExtra("commentCount", 0)
         val id = intent.getIntExtra("id", 0)
-        mBinding.tvPlayTitle.text = title
-        mBinding.tvPlayDescription.text = description
-        mBinding.tvPlayCategory.text = category
-        mBinding.tvPlayShare.text = shareCount.toString()
-        mBinding.tvPlayLike.text = likeCount.toString()
-        mBinding.tvPlayComment.text = commentCount.toString()
+        mBinding.apply {
+            tvPlayTitle.text = title
+            tvPlayDescription.text = description
+            tvPlayCategory.text = category
+            tvPlayShare.text = shareCount.toString()
+            tvPlayLike.text = likeCount.toString()
+            tvPlayComment.text = commentCount.toString()
+            loser.requestFocus()
+        }
         relatedViewModel.getRelated(id)
         topAdapter = TopAdapter()
         relatedViewModel.relatedData.observe(this) {
