@@ -1,4 +1,4 @@
-package com.example.modle_playground.ChildAdapter
+package com.example.model.search.ChildAdapter
 
 import Share
 import android.content.Intent
@@ -19,8 +19,9 @@ import com.bumptech.glide.Glide
 import com.example.lib.api.Page2Change
 import com.example.lib.api.Page3Change
 import com.example.lib.api.formatNumberToTime
-import com.example.modle.playground.R
-import com.example.modle_playground.Bean.Follow
+import com.example.model.search.Bean.Follow
+import com.example.model.search.DataDiffCallback
+import com.example.model.searh.R
 import org.w3c.dom.Text
 
 class FollowAdapter() :
@@ -42,7 +43,7 @@ class FollowAdapter() :
         }
     ) {
     private lateinit var adapter: FollowViewPager2Adapter
-
+    private val data: MutableList<Follow.Item> = mutableListOf()
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val iconImage: ImageView
         val titleTextView: TextView
@@ -56,8 +57,7 @@ class FollowAdapter() :
                 description = findViewById(R.id.tv_follow_description)
                 viewPager2 = findViewById(R.id.vp2_video)
             }
-            viewPager2.isUserInputEnabled=true
-            viewPager2.setPageTransformer(Page2Change(viewPager2))
+            viewPager2.setPageTransformer(Page2Change())
         }
     }
 
@@ -82,4 +82,5 @@ class FollowAdapter() :
             }
         }
     }
+
 }

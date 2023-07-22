@@ -1,4 +1,4 @@
-package com.example.modle_playground.Bean
+package com.example.model.search.Bean
 import com.google.gson.annotations.SerializedName
 
 

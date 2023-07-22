@@ -1,6 +1,6 @@
-package com.example.modle_playground.net
+package com.example.model.search.net
 
-import com.example.modle_playground.Bean.Follow
+import com.example.model.search.Bean.Follow
 import retrofit2.Call
 import retrofit2.http.GET
 
