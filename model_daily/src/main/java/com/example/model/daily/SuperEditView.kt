@@ -6,7 +6,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatEditText
-import com.example.model.searh.R
+import com.example.model.daily.R
+
 
 /*
  *author：石良昊

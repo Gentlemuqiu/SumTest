@@ -1,4 +1,4 @@
-package com.example.model.search
+package com.example.model.daily
 
 /**
  *author：石良昊
@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class SearchHistory : ViewGroup {
+class SelfAdapterText : ViewGroup {
     //存储所有子View
     private val mAllChildViews: MutableList<MutableList<View>> = ArrayList()
 

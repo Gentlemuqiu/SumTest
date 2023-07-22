@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.model.daily.banner.net.BannerNetWork
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.banner.Repository
+import com.example.model.daily.net.BannerNetWork
+import com.example.model.daily.net.model.Story
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -20,9 +21,13 @@ date : 2023/7/20 15:08
  */
 class BannerViewModel : ViewModel() {
 
+
+
+    val storyList = ArrayList<Story.Item>()
+
+    val bannerLiveData = Repository.bannerStory()
+
     private val _bannerStoryData = MutableLiveData<Story>()
-
-
     val bannerStoryData: LiveData<Story> get() = _bannerStoryData
 
     fun getBannerStory() {

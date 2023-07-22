@@ -1,6 +1,6 @@
-package com.example.model.daily.banner.net
+package com.example.model.daily.net
 
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.net.model.Story
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -9,7 +9,7 @@ import retrofit2.http.GET
  *email：904839562@qq.com
 date : 2023/7/20 15:10
  */
-interface BannerService {
+interface  BannerService {
     @GET("api/v5/index/tab/feed")
     fun getBannerStory():Call<Story>
 }
