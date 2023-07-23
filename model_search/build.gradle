@@ -63,7 +63,7 @@ kapt {
 dependencies {
     implementation(project(":lib_api"))
     implementation(project(":lib_netWork"))
-
+    implementation(project(":model_play"))
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-reactive:1.5.0"

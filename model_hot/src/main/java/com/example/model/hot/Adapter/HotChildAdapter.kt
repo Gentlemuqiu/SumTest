@@ -1,4 +1,4 @@
-package com.example.model.hot.ChildApapter
+package com.example.model.hot.Adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle

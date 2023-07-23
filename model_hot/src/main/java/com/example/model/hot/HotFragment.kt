@@ -1,11 +1,12 @@
 package com.example.model.hot
 
-import com.example.model.hot.ChildApapter.HotChildAdapter
+import com.example.model.hot.Adapter.HotChildAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.lib.api.PageChange
 import com.example.model.hot.ChildFragment.AllFragment
 import com.example.model.hot.ChildFragment.MonthFragment
 import com.example.model.hot.ChildFragment.WeekFragment
@@ -33,6 +34,7 @@ class HotFragment : Fragment() {
 
     private fun initData() {
         mBinding.vp2Content.isSaveEnabled = false
+        mBinding.vp2Content.setPageTransformer(PageChange())
         nameList.add("周排行")
         nameList.add("月排行")
         nameList.add("总排行")
@@ -48,4 +50,5 @@ class HotFragment : Fragment() {
             mBinding.tabTitle, mBinding.vp2Content
         ) { tab: TabLayout.Tab, position: Int -> tab.text = nameList[position] }.attach()
     }
+
 }
