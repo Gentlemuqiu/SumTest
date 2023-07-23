@@ -31,14 +31,14 @@ class FollowAdapter() :
                 oldItem: Follow.Item,
                 newItem: Follow.Item
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.data.header.id == newItem.data.header.id
             }
 
             override fun areContentsTheSame(
                 oldItem: Follow.Item,
                 newItem: Follow.Item
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.data.header.id == newItem.data.header.id
             }
         }
     ) {
