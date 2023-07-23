@@ -1,4 +1,4 @@
-package com.example.model.daily
+package com.example.model.daily.CustomView
 
 import android.content.Context
 import android.graphics.Canvas

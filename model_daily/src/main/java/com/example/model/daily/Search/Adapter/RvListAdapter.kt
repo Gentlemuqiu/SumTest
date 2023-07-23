@@ -1,4 +1,4 @@
-package com.example.model.daily.Adapter
+package com.example.model.daily.Search.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.model.daily.BorderTextView
+import com.example.model.daily.CustomView.BorderTextView
 import com.example.model.daily.R
-import com.example.model.daily.net.model.KeyHot
+import com.example.model.daily.Search.net.model.KeyHot
 
 
 /**
@@ -45,4 +45,5 @@ class RvListAdapter(private val context: Fragment) : ListAdapter<KeyHot, RvListA
         val key = getItem(position)
         holder.rv_tv.text = key[position]
     }
+
 }

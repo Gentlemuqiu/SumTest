@@ -1,7 +1,7 @@
-package com.example.model.daily.net
+package com.example.model.daily.Search.net
 
 
-import com.example.model.daily.net.model.KeyHot
+import com.example.model.daily.Search.net.model.KeyHot
 import retrofit2.Call
 import retrofit2.http.GET
 

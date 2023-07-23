@@ -1,4 +1,4 @@
-package com.example.model.daily.ViewModel
+package com.example.model.daily.Search.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
-import com.example.model.daily.net.KeyNetWork
-import com.example.model.daily.net.model.KeyHot
+import com.example.model.daily.Search.net.KeyNetWork
+import com.example.model.daily.Search.net.model.KeyHot
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -21,7 +21,7 @@ date : 2023/7/22 14:17
  */
 class KeyViewModel : ViewModel() {
 
-    val keyHotList = KeyHot()
+    val keyHotList =KeyHot()
 
     private val _keyData = MutableLiveData<KeyHot>()
     val keyData: LiveData<KeyHot> get() = _keyData
@@ -31,6 +31,7 @@ class KeyViewModel : ViewModel() {
             flow {
                 val list = KeyNetWork.getKey()
                 emit(list)
+                Log.d("slh", "getKey:${list} ")
             }.flowOn(Dispatchers.IO)
                 .catch { e -> e.printStackTrace()
                 }.collect {
