@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.model.daily.Search.Adapter.RvAdapter
+import com.example.model.daily.Recommend.Adapter.RecommendAdapter
+import com.example.model.daily.Recommend.Adapter.RecommendListAdapter
+import com.example.model.daily.Recommend.ViewModel.RecommendViewModel
 import com.example.model.daily.Search.Adapter.RvListAdapter
 import com.example.model.daily.Search.SPUtils
 import com.example.model.daily.Search.SPUtils.Companion.getInstance
@@ -37,9 +39,15 @@ class DailyFragment : Fragment() {
 
     private val bannerViewModel by lazy { ViewModelProvider(this)[BannerViewModel::class.java] }
 
+    private val recommendViewModel by lazy { ViewModelProvider(this)[RecommendViewModel::class.java] }
+
     private lateinit var adapter: Vp2Adapter
 
     private lateinit var rvAdapter: RvListAdapter
+
+    private lateinit var rAdapter: RecommendAdapter
+
+
 
     //    private lateinit var adapter: PagerAdapter
     private val keyViewModel by lazy { ViewModelProvider(this)[KeyViewModel::class.java] }
@@ -65,6 +73,27 @@ class DailyFragment : Fragment() {
         doBanner()
         doSearch()
 
+
+    }
+
+//    private fun doRefresh() {
+//        mBinding.swipeRefresh.setOnRefreshListener {
+//            //刷新时,再次请求一次数据
+//            recommendViewModel.getRecommend()
+//            //将刷新状态取消
+//            mBinding.swipeRefresh.isRefreshing = false
+//        }
+//    }
+
+    private fun initRecommend(){
+        rAdapter = RecommendAdapter(this,recommendViewModel.recommendList)
+        recommendViewModel.getRecommend()
+//        doRefresh()
+        recommendViewModel.recommendData.observe(viewLifecycleOwner) {
+
+        }
+        mBinding.rvRecommend.layoutManager = LinearLayoutManager(context)
+        mBinding.rvRecommend.adapter = rAdapter
     }
 
     private fun initSearch() {
@@ -107,9 +136,11 @@ class DailyFragment : Fragment() {
 //        adapter = PagerAdapter(this)
 
             mBinding.vp2.adapter = adapter
-
             keyViewModel.getKey()
             rvAdapter = RvListAdapter(this)
+
+            recommendViewModel.getRecommend()
+            rAdapter = RecommendAdapter(this,recommendViewModel.recommendList)
 
         }
 
@@ -120,9 +151,12 @@ class DailyFragment : Fragment() {
                 val data = result.getOrNull()
                 if (data != null) {
                     bannerViewModel.storyList.clear()
-
-                    bannerViewModel.storyList.addAll(data.itemList)
-
+                    for (i in 1..10) {
+                        bannerViewModel.storyList.add(data.itemList[i])
+                    }
+                    for (i in 12..21) {
+                        bannerViewModel.storyList.add(data.itemList[i])
+                    }
                     adapter.notifyDataSetChanged()
                 }
 //        bannerViewModel.bannerStoryData.observe(viewLifecycleOwner){
@@ -135,14 +169,30 @@ class DailyFragment : Fragment() {
 //            }
 
 
-            keyViewModel.keyData.observe(viewLifecycleOwner){result ->
-                if (result != null){
+            keyViewModel.keyData.observe(viewLifecycleOwner) { result ->
+                if (result != null) {
                     keyViewModel.keyHotList.clear()
                     keyViewModel.keyHotList.addAll(result)
-                    Log.d("slh", "doLogic: ${result}")
                     rvAdapter.notifyDataSetChanged()
                 }
 
+            }
+
+            recommendViewModel.recommendData.observe(viewLifecycleOwner) { result ->
+
+
+                    recommendViewModel.recommendList.clear()
+                    for (i in 2..3) {
+                        recommendViewModel.recommendList.add(result.itemList[i])
+                    }
+                    for (i in 6..7) {
+                        recommendViewModel.recommendList.add(result.itemList[i])
+                    }
+                    rAdapter.notifyDataSetChanged()
+
+
+                mBinding.rvRecommend.layoutManager = LinearLayoutManager(context)
+                mBinding.rvRecommend.adapter = rAdapter
             }
         }
 
