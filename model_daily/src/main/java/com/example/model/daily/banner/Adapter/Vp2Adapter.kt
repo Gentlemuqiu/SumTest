@@ -1,5 +1,6 @@
 package com.example.model.daily.banner.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.model.daily.R
 import com.example.model.daily.banner.net.model.Story
+import java.lang.NullPointerException
+import kotlin.math.log
 
 /**
  *author：石良昊
@@ -37,7 +40,7 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (data.isNotEmpty()) {
-            if (position% 22 == 0 || position% 22 == 11) {
+//            if (position% data.size == 0 || position% data.size == 11) {
 
 
 //            if (position % 22 == 0) {
@@ -48,14 +51,20 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
 //                Glide.with(fragment).load(R.drawable.eyepotizer)
 //                    .into(holder.image)
 //            }
-            } else {
-                Glide.with(fragment).load(data[position % 22].data.content.data.cover.feed)
-                    .into(holder.image)
-                holder.title.text = data[position % 22].data.content.data.title
-//            }
-            }
+//            } else
 
-        }}
+
+                try {
+                            Glide.with(fragment).load(data[position % data.size].data.content.data.cover.feed)
+                                .into(holder.image)
+                            holder.title.text = data[position % data.size].data.content.data.title
+
+                }catch (e:NullPointerException){
+                    Log.d("slh", "onBindViewHolder: ")
+                }
+//            }
+        }
+    }
         fun remove(position: Int) {
             data.removeAt(position);
             notifyItemRemoved(position);
