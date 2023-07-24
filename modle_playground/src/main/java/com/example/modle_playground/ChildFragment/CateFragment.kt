@@ -29,7 +29,8 @@ class CateFragment : Fragment() {
         FragmentCateBinding.inflate(layoutInflater)
     }
     private lateinit var adapter: CateGoryAdapter
-    private val newFollowViewModel by lazy { ViewModelProvider(this)[CateGoryViewModel::class.java] }
+    private val newFollowViewModel by lazy {
+        ViewModelProvider(this)[CateGoryViewModel::class.java] }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
