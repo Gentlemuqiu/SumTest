@@ -1,4 +1,4 @@
-package com.example.model.daily.banner.Adapter
+package com.example.model.daily.BelowBanner.Adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,27 +9,26 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.model.daily.BelowBanner.net.model.BelowStory
 import com.example.model.daily.R
-import com.example.model.daily.banner.net.model.Story
 import java.lang.NullPointerException
-import kotlin.math.log
 
 /**
  *author：石良昊
  *email：904839562@qq.com
-date : 2023/7/22 09:56
+date : 2023/7/24 17:53
  */
-class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Story.Item>):
-    RecyclerView.Adapter<Vp2Adapter.ViewHolder>() {
+class BelowBannerAdapter(private val fragment: Fragment, private val data: ArrayList<BelowStory.Item>):
+    RecyclerView.Adapter<BelowBannerAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.image)
-        val title: TextView = view.findViewById(R.id.title)
+        val belowStoryImage: ImageView = view.findViewById(R.id.belowStoryImage)
+        val belowStoryTitle: TextView = view.findViewById(R.id.belowStoryTitle)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.vp2_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.belowbanner_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -54,21 +53,21 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
 //            } else
 
 
-                try {
-                            Glide.with(fragment).load(data[position % data.size].data.content.data.cover.feed)
-                                .into(holder.image)
-                            holder.title.text = data[position % data.size].data.content.data.title
-
-                }catch (e:NullPointerException){
-                    Log.d("slh", "onBindViewHolder: ")
+            try {
+                if (position% data.size == 0 || position% data.size == 3) {
+                    Glide.with(fragment)
+                        .load(data[position % data.size].data.content.data.cover.feed)
+                        .into(holder.belowStoryImage)
+                    holder.belowStoryTitle.text = data[position % data.size].data.content.data.title
+                } else {
+                    Glide.with(fragment)
+                        .load(data[position % data.size].data.cover.feed)
+                        .into(holder.belowStoryImage)
+                    holder.belowStoryTitle.text = data[position % data.size].data.title
                 }
+            } catch (e: NullPointerException) {
+            }
 //            }
         }
     }
-        fun remove(position: Int) {
-            data.removeAt(position);
-            notifyItemRemoved(position);
-            //刷新下标，不然下标就重复
-            notifyItemRangeChanged(position, data.count());
-        }
-    }
+}

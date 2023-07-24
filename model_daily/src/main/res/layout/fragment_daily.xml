@@ -129,6 +129,28 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/below_rl"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="175dp"
+                android:clipChildren="false">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/belowBanner"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:clipChildren="false" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
