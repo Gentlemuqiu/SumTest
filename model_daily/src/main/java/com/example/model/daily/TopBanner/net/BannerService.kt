@@ -1,6 +1,6 @@
-package com.example.model.daily.banner.net
+package com.example.model.daily.TopBanner.net
 
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.TopBanner.net.model.Story
 import retrofit2.Call
 import retrofit2.http.GET
 

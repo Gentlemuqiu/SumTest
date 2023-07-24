@@ -1,4 +1,4 @@
-package com.example.model.daily.banner.net.model
+package com.example.model.daily.TopBanner.net.model
 
 
 import com.google.gson.annotations.SerializedName

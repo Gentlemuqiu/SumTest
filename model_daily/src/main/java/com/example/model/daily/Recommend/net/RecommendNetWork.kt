@@ -1,7 +1,6 @@
-package com.example.model.daily.Recommend.net.model
+package com.example.model.daily.Recommend.net
 
 import com.example.lib.network.ServiceCreator
-import com.example.model.daily.Recommend.net.RecommendService
 import retrofit2.await
 
 /**

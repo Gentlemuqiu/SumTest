@@ -13,8 +13,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.lib.api.formatNumberToTime
 import com.example.model.daily.R
 import com.example.model.daily.Recommend.net.model.Recommend
-import com.example.model.daily.banner.Adapter.Vp2Adapter
-import com.example.model.daily.banner.net.model.Story
 import java.lang.NullPointerException
 
 /**
@@ -71,18 +69,25 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
 //            } else
 
 
-            try {
-
-                Glide.with(fragment).load(data[position].data.cover.feed).into(holder.coverImage)
-                Glide.with(fragment).load(data[position].data.author.icon)
-                    .transform(RoundedCorners(180)).into(holder.iconImage)
-                holder.titleText.text = data[position].data.title
-                holder.authorText.text = "#" + data[position].data.author.name
-                holder.timeText.text = "▶"+formatNumberToTime(data[position].data.duration)
-
-            } catch (e: NullPointerException) {
-                Log.d("slh", "onBindViewHolder: ")
-            }
+                try {
+                    if (position == 0 || position == 3) {
+                        Glide.with(fragment).load(data[position].data.content.data.cover.feed).into(holder.coverImage)
+                        Glide.with(fragment).load(data[position].data.content.data.author.icon)
+                            .transform(RoundedCorners(180)).into(holder.iconImage)
+                        holder.titleText.text = data[position].data.content.data.title
+                        holder.authorText.text = "#" + data[position].data.content.data.author.name
+                        holder.timeText.text = "▶"+formatNumberToTime(data[position].data.content.data.duration)
+                    } else {
+                        Glide.with(fragment).load(data[position].data.cover.feed).into(holder.coverImage)
+                        Glide.with(fragment).load(data[position].data.author.icon)
+                            .transform(RoundedCorners(180)).into(holder.iconImage)
+                        holder.titleText.text = data[position].data.title
+                        holder.authorText.text = "#" + data[position].data.author.name
+                        holder.timeText.text = "▶"+formatNumberToTime(data[position].data.duration)
+                    }
+                }
+                catch (e: NullPointerException) {
+                }
         }
     }
 }

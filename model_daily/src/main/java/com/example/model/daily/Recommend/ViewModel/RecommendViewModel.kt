@@ -12,8 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import com.example.model.daily.Recommend.net.model.Recommend
-import com.example.model.daily.Recommend.net.model.RecommendNetWork
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.Recommend.net.RecommendNetWork
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch

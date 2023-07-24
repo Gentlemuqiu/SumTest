@@ -1,13 +1,13 @@
-package com.example.model.daily.banner.ViewModel
+package com.example.model.daily.TopBanner.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.model.daily.banner.Repository
-import com.example.model.daily.banner.net.BannerNetWork
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.TopBanner.Repository
+import com.example.model.daily.TopBanner.net.BannerNetWork
+import com.example.model.daily.TopBanner.net.model.Story
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -20,8 +20,6 @@ import kotlinx.coroutines.launch
 date : 2023/7/20 15:08
  */
 class BannerViewModel : ViewModel() {
-
-
 
     val storyList = ArrayList<Story.Item>()
 
