@@ -1,4 +1,4 @@
-package com.example.model.daily
+package com.example.model.daily.Search
 
 /**
  *author：石良昊

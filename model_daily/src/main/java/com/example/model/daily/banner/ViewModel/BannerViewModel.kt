@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.model.daily.banner.Repository
-import com.example.model.daily.net.BannerNetWork
-import com.example.model.daily.net.model.Story
+import com.example.model.daily.banner.net.BannerNetWork
+import com.example.model.daily.banner.net.model.Story
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

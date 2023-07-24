@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.model.daily.R
-import com.example.model.daily.net.model.Story
+import com.example.model.daily.banner.net.model.Story
 
 /**
  *author：石良昊
@@ -22,7 +22,6 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.image)
         val title: TextView = view.findViewById(R.id.title)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,20 +31,35 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return Int.MAX_VALUE
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if ( position == 0 || position == 11){
+        if (data.isNotEmpty()) {
+            if (position% 22 == 0 || position% 22 == 11) {
 
-        }
-        else if(position == 21){
-            Glide.with(fragment).load(data[1].data.content.data.cover.feed).into(holder.image)
-            holder.title.text = data[1].data.content.data.title}
-        else {
-            Glide.with(fragment).load(data[position].data.content.data.cover.feed).into(holder.image)
-            holder.title.text = data[position].data.content.data.title
+
+//            if (position % 22 == 0) {
+//                Glide.with(fragment).load(R.drawable.openeyes)
+//                    .into(holder.image)
+//            }
+//            if (position % 22 == 11) {
+//                Glide.with(fragment).load(R.drawable.eyepotizer)
+//                    .into(holder.image)
+//            }
+            } else {
+                Glide.with(fragment).load(data[position % 22].data.content.data.cover.feed)
+                    .into(holder.image)
+                holder.title.text = data[position % 22].data.content.data.title
+//            }
+            }
+
+        }}
+        fun remove(position: Int) {
+            data.removeAt(position);
+            notifyItemRemoved(position);
+            //刷新下标，不然下标就重复
+            notifyItemRangeChanged(position, data.count());
         }
     }
-}
