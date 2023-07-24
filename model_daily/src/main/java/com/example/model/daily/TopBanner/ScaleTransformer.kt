@@ -1,4 +1,4 @@
-package com.example.model.daily.banner
+package com.example.model.daily.TopBanner
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
