@@ -1,7 +1,7 @@
-package com.example.model.daily.banner
+package com.example.model.daily.TopBanner
 
 import androidx.lifecycle.liveData
-import com.example.model.daily.banner.net.BannerNetWork
+import com.example.model.daily.TopBanner.net.BannerNetWork
 import kotlinx.coroutines.Dispatchers
 import kotlin.coroutines.CoroutineContext
 

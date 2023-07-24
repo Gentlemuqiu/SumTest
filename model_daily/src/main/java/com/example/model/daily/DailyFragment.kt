@@ -13,14 +13,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.model.daily.Search.Adapter.RvAdapter
+import com.example.model.daily.BelowBanner.Adapter.BelowBannerAdapter
+import com.example.model.daily.BelowBanner.ViewModel.BelowBannerViewModel
+import com.example.model.daily.Recommend.Adapter.RecommendAdapter
+import com.example.model.daily.Recommend.ViewModel.RecommendViewModel
 import com.example.model.daily.Search.Adapter.RvListAdapter
 import com.example.model.daily.Search.SPUtils
 import com.example.model.daily.Search.SPUtils.Companion.getInstance
 import com.example.model.daily.Search.ViewModel.KeyViewModel
-import com.example.model.daily.banner.Adapter.Vp2Adapter
-import com.example.model.daily.banner.ScaleTransformer
-import com.example.model.daily.banner.ViewModel.BannerViewModel
+import com.example.model.daily.TopBanner.Adapter.Vp2Adapter
+import com.example.model.daily.TopBanner.ScaleTransformer
+import com.example.model.daily.TopBanner.ViewModel.BannerViewModel
 import com.example.model.daily.databinding.FragmentDailyBinding
 
 import java.util.Timer
@@ -32,14 +35,26 @@ class DailyFragment : Fragment() {
     //用来记录是否按压,如果按压,则不滚动
     var isDown = false
 
+
+
     private var timer = Timer()
 
 
     private val bannerViewModel by lazy { ViewModelProvider(this)[BannerViewModel::class.java] }
 
+    private val recommendViewModel by lazy { ViewModelProvider(this)[RecommendViewModel::class.java] }
+
+    private val belowBannerViewModel by lazy { ViewModelProvider(this)[BelowBannerViewModel::class.java] }
+
     private lateinit var adapter: Vp2Adapter
 
     private lateinit var rvAdapter: RvListAdapter
+
+    private lateinit var rAdapter: RecommendAdapter
+
+    private lateinit var belowBannerAdapter: BelowBannerAdapter
+
+
 
     //    private lateinit var adapter: PagerAdapter
     private val keyViewModel by lazy { ViewModelProvider(this)[KeyViewModel::class.java] }
@@ -63,9 +78,21 @@ class DailyFragment : Fragment() {
         initView()
         doLogic()
         doBanner()
+        doBelowBanner()
         doSearch()
 
+
     }
+
+//    private fun doRefresh() {
+//        mBinding.swipeRefresh.setOnRefreshListener {
+//            //刷新时,再次请求一次数据
+//            recommendViewModel.getRecommend()
+//            //将刷新状态取消
+//            mBinding.swipeRefresh.isRefreshing = false
+//        }
+//    }
+
 
     private fun initSearch() {
         initHistory()
@@ -104,13 +131,17 @@ class DailyFragment : Fragment() {
         private fun initView() {
             bannerViewModel.getBannerStory()
             adapter = Vp2Adapter(this, bannerViewModel.storyList)
-//        adapter = PagerAdapter(this)
 
             mBinding.vp2.adapter = adapter
 
             keyViewModel.getKey()
             rvAdapter = RvListAdapter(this)
 
+            recommendViewModel.getRecommend()
+            rAdapter = RecommendAdapter(this,recommendViewModel.recommendList)
+
+            belowBannerViewModel.getBelowBannerStory()
+            belowBannerAdapter = BelowBannerAdapter(this,belowBannerViewModel.belowStoryList)
         }
 
 
@@ -120,9 +151,12 @@ class DailyFragment : Fragment() {
                 val data = result.getOrNull()
                 if (data != null) {
                     bannerViewModel.storyList.clear()
-
-                    bannerViewModel.storyList.addAll(data.itemList)
-
+                    for (i in 1..10) {
+                        bannerViewModel.storyList.add(data.itemList[i])
+                    }
+                    for (i in 12..21) {
+                        bannerViewModel.storyList.add(data.itemList[i])
+                    }
                     adapter.notifyDataSetChanged()
                 }
 //        bannerViewModel.bannerStoryData.observe(viewLifecycleOwner){
@@ -135,16 +169,47 @@ class DailyFragment : Fragment() {
 //            }
 
 
-            keyViewModel.keyData.observe(viewLifecycleOwner){result ->
-                if (result != null){
+            keyViewModel.keyData.observe(viewLifecycleOwner) { result ->
+                if (result != null) {
                     keyViewModel.keyHotList.clear()
                     keyViewModel.keyHotList.addAll(result)
-                    Log.d("slh", "doLogic: ${result}")
                     rvAdapter.notifyDataSetChanged()
                 }
 
             }
-        }
+
+            recommendViewModel.recommendData.observe(viewLifecycleOwner) { result ->
+
+                recommendViewModel.recommendList.clear()
+                for (i in 1..3) {
+                    recommendViewModel.recommendList.add(result.itemList[i])
+                }
+                for (i in 5..7) {
+                    recommendViewModel.recommendList.add(result.itemList[i])
+                }
+
+                rAdapter.notifyDataSetChanged()
+
+
+                mBinding.rvRecommend.layoutManager = LinearLayoutManager(context)
+                mBinding.rvRecommend.adapter = rAdapter
+            }
+
+            belowBannerViewModel.belowBannerData.observe(viewLifecycleOwner) { result ->
+
+                    belowBannerViewModel.belowStoryList.clear()
+                    for (i in 1..3) {
+                        belowBannerViewModel.belowStoryList.add(result.itemList[i])
+                    }
+                    for (i in 5..7) {
+                        belowBannerViewModel.belowStoryList.add(result.itemList[i])
+                    }
+//                belowBannerViewModel.belowStoryList.addAll(result.itemList)
+                    belowBannerAdapter.notifyDataSetChanged()
+                }
+            mBinding.belowBanner.adapter = belowBannerAdapter
+            }
+
 
         private fun doBanner() {
 
@@ -184,6 +249,43 @@ class DailyFragment : Fragment() {
                 }
             })
         }
+
+    private fun doBelowBanner(){
+
+        mBinding.belowBanner.offscreenPageLimit = 3
+        //定时器播放ViewPager
+        val timerTask: TimerTask = object : TimerTask() {
+            override fun run() {
+                if (!isDown) {
+                    //获取到当前的位置
+                    val page = mBinding.belowBanner.currentItem + 1
+                    activity?.runOnUiThread {
+                        mBinding.belowBanner.currentItem = page
+                    }
+
+                }
+            }
+        }
+        // 每2.5秒执行一次
+        timer.schedule(timerTask, 0, 2500)
+
+        mBinding.belowBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+                //viewPager滑动的时候,设置不让滚动
+                isDown = true
+            }
+
+            override fun onPageSelected(position: Int) {}
+            override fun onPageScrollStateChanged(state: Int) {
+                //ViewPager不点击了让滚动
+                isDown = false
+            }
+        })
+    }
 
         private fun isNullorEmpty(str: String?): Boolean {
             return str == null || "" == str
@@ -252,5 +354,6 @@ class DailyFragment : Fragment() {
         Log.d("slh", "initKeyHot:ok")
             // initautoSearch();
         }
-    }
+}
+
 

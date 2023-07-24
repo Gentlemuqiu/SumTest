@@ -1,4 +1,4 @@
-package com.example.model.daily.banner.Adapter
+package com.example.model.daily.TopBanner.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.model.daily.R
-import com.example.model.daily.banner.net.model.Story
+import com.example.model.daily.TopBanner.net.model.Story
 
 /**
  *author：石良昊
@@ -40,7 +40,7 @@ class PagerAdapter(private val context: Fragment) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.vp2_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.banner_item, parent, false)
         return ViewHolder(view)
     }
 
