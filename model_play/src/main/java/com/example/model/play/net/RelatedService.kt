@@ -8,5 +8,5 @@ import retrofit2.http.Query
 
 interface RelatedService {
     @GET("api/v4/video/related?")
-    fun getRelated(@Query("id") id :Int) : Call<Related>
+    fun getRelated(@Query("id") id: Int): Call<Related>
 }
