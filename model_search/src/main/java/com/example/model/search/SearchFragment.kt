@@ -19,12 +19,17 @@ import com.example.model.searh.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
 
-    private val followViewModel by lazy { ViewModelProvider(this)[FollowViewModel::class.java] }
-    private val newFollowViewModel by lazy { ViewModelProvider(this)[NewFollowViewModel::class.java] }
+    private val followViewModel by lazy {
+        ViewModelProvider(this)[FollowViewModel::class.java] }
+    private val newFollowViewModel by lazy {
+        ViewModelProvider(this)[NewFollowViewModel::class.java] }
 
-    private lateinit var adapter: com.example.model.search.ChildAdapter.FollowAdapter
+    private lateinit var adapter:
+            com.example.model.search.ChildAdapter.FollowAdapter
     private var url: String? = null
+
     private var data: MutableList<Follow.Item> = mutableListOf()
+
     private val mBinding: FragmentSearchBinding by lazy {
         FragmentSearchBinding.inflate(layoutInflater)
     }

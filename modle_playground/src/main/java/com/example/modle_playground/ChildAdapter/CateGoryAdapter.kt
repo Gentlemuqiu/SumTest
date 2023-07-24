@@ -5,15 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.alibaba.android.arouter.launcher.ARouter
 import com.example.modle.playground.R
 import com.example.modle_playground.Bean.CateGoryBean
 import com.example.modle_playground.MyImage.imageArray
 
-class CateGoryAdapter : ListAdapter<CateGoryBean.CateGoryBeanItem,
+class CateGoryAdapter(private val context: Fragment) : ListAdapter<CateGoryBean.CateGoryBeanItem,
         CateGoryAdapter.ViewHolder>(object :
     DiffUtil.ItemCallback<CateGoryBean.CateGoryBeanItem>() {
     override fun areItemsTheSame(
@@ -40,6 +41,14 @@ class CateGoryAdapter : ListAdapter<CateGoryBean.CateGoryBeanItem,
             view.run {
                 iconImage = findViewById(R.id.iv_icon)
                 tvCategories = findViewById(R.id.tv_categories)
+            }
+            iconImage.setOnClickListener {
+                getItem(absoluteAdapterPosition).run {
+                    ARouter.getInstance().build("/introduce/IntroduceActivity/")
+                        .withString("description", description)
+                        .withInt("id", id)
+                        .navigation(context.activity?.application?.applicationContext)
+                }
             }
         }
     }

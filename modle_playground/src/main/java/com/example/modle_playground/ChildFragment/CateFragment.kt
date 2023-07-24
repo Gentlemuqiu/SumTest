@@ -44,12 +44,18 @@ class CateFragment : Fragment() {
         newFollowViewModel.getCateGory()
         mBinding.rvCategory.layoutManager =
             GridLayoutManager(context, 2)
-        adapter = CateGoryAdapter()
+        adapter = CateGoryAdapter(this)
         newFollowViewModel.cateGoryData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            val list = it.filter { element ->
+                element.id!=6
+            }.filter { element ->
+                element.id!=8
+            }.filter { element->
+                element.id!=22
+            }
+            adapter.submitList(list)
         }
-
         mBinding.rvCategory.adapter = adapter
-
     }
+
 }
