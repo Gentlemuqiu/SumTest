@@ -13,20 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.model.search.Bean.Follow
 import com.example.model.search.viewModel.FollowViewModel
-import com.example.model.search.viewModel.NewFollowViewModel
 import com.example.model.searh.databinding.FragmentSearchBinding
 
 
 class SearchFragment : Fragment() {
 
     private val followViewModel by lazy {
-        ViewModelProvider(this)[FollowViewModel::class.java] }
-    private val newFollowViewModel by lazy {
-        ViewModelProvider(this)[NewFollowViewModel::class.java] }
+        ViewModelProvider(this)[FollowViewModel::class.java]
+    }
 
     private lateinit var adapter:
             com.example.model.search.ChildAdapter.FollowAdapter
     private var url: String? = null
+
+    private var count: Int = 0
 
     private var data: MutableList<Follow.Item> = mutableListOf()
 
@@ -50,9 +50,11 @@ class SearchFragment : Fragment() {
         followViewModel.getFollow()
         doRefresh()
         followViewModel.followData.observe(viewLifecycleOwner) {
-            data.addAll(it.itemList)
-            adapter.submitList(data)
             url = it.nextPageUrl
+        }
+        followViewModel.follow.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+            count=it.size
         }
         mBinding.rvFollow.adapter = adapter
         mBinding.rvFollow.setOnTouchListener { _, event ->
@@ -81,24 +83,14 @@ class SearchFragment : Fragment() {
     }
 
     private fun doLoad(url: String) {
-        newFollowViewModel.getNewFollow(url)
-        newFollowViewModel.newFollowData.observe(viewLifecycleOwner) {
-           //修复重复添加元素而出现的bug
-            for (newItem in it.itemList) {
-                var exists = false
-                for (existingItem in data) {
-                    if (existingItem.data.header.id === newItem.data.header.id) {
-                        exists = true
-                        break
-                    }
-                }
-                if (!exists) {
-                    data.add(newItem)
-                }
-            }
-            adapter.submitList(data)
-            adapter.notifyItemRangeChanged(0,data.size)
+        followViewModel.getNewFollow(url)
+        followViewModel.newFollowData.observe(viewLifecycleOwner) {
             this.url = it.nextPageUrl
+        }
+        followViewModel.follow.observe(viewLifecycleOwner){
+            adapter.submitList(it)
+            adapter.notifyItemRangeChanged(count,it.size)
+            count += it.size
         }
     }
 
