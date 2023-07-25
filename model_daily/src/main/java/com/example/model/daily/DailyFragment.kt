@@ -2,10 +2,8 @@ package com.example.model.daily
 
 
 import android.annotation.SuppressLint
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -23,10 +21,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.model.daily.BelowBanner.Adapter.BelowBannerAdapter
 import com.example.model.daily.BelowBanner.ViewModel.BelowBannerViewModel
 import com.example.model.daily.BelowStory.Adapter.BelowStoryAdapter
-import com.example.model.daily.BelowStory.Adapter.BelowStoryListAdapter
 import com.example.model.daily.BelowStory.Net.Model.BelowStory
 import com.example.model.daily.BelowStory.Viewmodel.BelowStoryViewModel
 import com.example.model.daily.BelowStory.Viewmodel.NewBelowStoryViewModel
+import com.example.model.daily.CustomView.ArcUpTransformer
 import com.example.model.daily.Recommend.Adapter.RecommendAdapter
 import com.example.model.daily.Recommend.ViewModel.RecommendViewModel
 import com.example.model.daily.Search.Adapter.RvListAdapter
@@ -34,7 +32,7 @@ import com.example.model.daily.Search.SPUtils
 import com.example.model.daily.Search.SPUtils.Companion.getInstance
 import com.example.model.daily.Search.ViewModel.KeyViewModel
 import com.example.model.daily.TopBanner.Adapter.Vp2Adapter
-import com.example.model.daily.TopBanner.ScaleTransformer
+import com.example.model.daily.CustomView.ScaleTransformer
 import com.example.model.daily.TopBanner.ViewModel.BannerViewModel
 import com.example.model.daily.databinding.FragmentDailyBinding
 
@@ -328,6 +326,7 @@ class DailyFragment : Fragment() {
 
     private fun doBelowBanner(){
 
+        mBinding.belowBanner.setPageTransformer(ArcUpTransformer())
         mBinding.belowBanner.offscreenPageLimit = 5
         //定时器播放ViewPager
         val timerTask: TimerTask = object : TimerTask() {
