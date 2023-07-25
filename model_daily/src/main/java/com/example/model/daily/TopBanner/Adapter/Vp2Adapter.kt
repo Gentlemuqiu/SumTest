@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.model.daily.R
 import com.example.model.daily.TopBanner.net.model.Story
@@ -22,8 +23,29 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
     RecyclerView.Adapter<Vp2Adapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.image)
-        val title: TextView = view.findViewById(R.id.title)
+        val image: ImageView
+        val title: TextView
+        init {
+            view.run {
+                image = findViewById(R.id.image)
+                title = findViewById(R.id.title)
+            }
+            image.setOnClickListener {
+                data[absoluteAdapterPosition % data.size].run {
+                    ARouter.getInstance().build("/play/PlayActivity/")
+                        .withString("playUrl", data.content.data.playUrl)
+                        .withString("title", data.content.data.title)
+                        .withString("description", data.content.data.description)
+                        .withString("category", data.content.data.category)
+                        .withInt("shareCount", data.content.data.consumption.shareCount)
+                        .withInt("likeCount", data.content.data.consumption.realCollectionCount)
+                        .withInt("commentCount", data.content.data.consumption.replyCount)
+                        .withInt("id", data.content.data.id)
+                        .navigation()
+                }
+            }
+        }
+
 
 
     }
@@ -53,7 +75,6 @@ class Vp2Adapter(private val fragment: Fragment, private val data: ArrayList<Sto
 //                    .into(holder.image)
 //            }
 //            } else
-
 
                 try {
                             Glide.with(fragment).load(data[position % data.size].data.content.data.cover.feed)

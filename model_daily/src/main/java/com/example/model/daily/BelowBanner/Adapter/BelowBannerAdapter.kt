@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.example.model.daily.BelowBanner.net.model.BelowStory
 import com.example.model.daily.R
@@ -22,8 +23,45 @@ class BelowBannerAdapter(private val fragment: Fragment, private val data: Array
     RecyclerView.Adapter<BelowBannerAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val belowStoryImage: ImageView = view.findViewById(R.id.belowStoryImage)
-        val belowStoryTitle: TextView = view.findViewById(R.id.belowStoryTitle)
+        val belowStoryImage: ImageView
+        val belowStoryTitle: TextView
+
+        init {
+            view.run {
+                belowStoryImage = findViewById(R.id.belowStoryImage)
+                belowStoryTitle = findViewById(R.id.belowStoryTitle)
+            }
+            belowStoryImage.setOnClickListener {
+                if (absoluteAdapterPosition% data.size == 0 || absoluteAdapterPosition% data.size == 3) {
+                    data[absoluteAdapterPosition % data.size].run {
+                        ARouter.getInstance().build("/play/PlayActivity/")
+                            .withString("playUrl", data.content.data.playUrl)
+                            .withString("title", data.content.data.title)
+                            .withString("description", data.content.data.description)
+                            .withString("category", data.content.data.category)
+                            .withInt("shareCount", data.content.data.consumption.shareCount)
+                            .withInt("likeCount", data.content.data.consumption.realCollectionCount)
+                            .withInt("commentCount", data.content.data.consumption.replyCount)
+                            .withInt("id", data.content.data.id)
+                            .navigation()
+                    }
+                } else {
+                    data[absoluteAdapterPosition % data.size].run {
+                        ARouter.getInstance().build("/play/PlayActivity/")
+                            .withString("playUrl", data.playUrl)
+                            .withString("title", data.title)
+                            .withString("description", data.description)
+                            .withString("category", data.category)
+                            .withInt("shareCount", data.consumption.shareCount)
+                            .withInt("likeCount", data.consumption.realCollectionCount)
+                            .withInt("commentCount", data.consumption.replyCount)
+                            .withInt("id", data.id)
+                            .navigation()
+                    }
+                }
+            }
+
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

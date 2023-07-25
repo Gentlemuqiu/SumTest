@@ -45,6 +45,20 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
                 typeText = findViewById(R.id.recommend_type)
             }
             play.setOnClickListener {
+                if (absoluteAdapterPosition == 0 || absoluteAdapterPosition == 3 ) {
+                    data[absoluteAdapterPosition].run {
+                        ARouter.getInstance().build("/play/PlayActivity/")
+                            .withString("playUrl", data.content.data.playUrl)
+                            .withString("title", data.content.data.title)
+                            .withString("description", data.content.data.description)
+                            .withString("category", data.content.data.category)
+                            .withInt("shareCount", data.content.data.consumption.shareCount)
+                            .withInt("likeCount", data.content.data.consumption.realCollectionCount)
+                            .withInt("commentCount", data.content.data.consumption.replyCount)
+                            .withInt("id", data.content.data.id)
+                            .navigation()
+                    }
+                }else{
                 data[absoluteAdapterPosition].run {
                     ARouter.getInstance().build("/play/PlayActivity/")
                         .withString("playUrl", data.playUrl)
@@ -56,6 +70,7 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
                         .withInt("commentCount", data.consumption.replyCount)
                         .withInt("id", data.id)
                         .navigation()
+                }
                 }
             }
 //            }

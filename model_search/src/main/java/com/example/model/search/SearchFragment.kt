@@ -70,10 +70,8 @@ class SearchFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                 if (totalItemCount - 1 == lastVisibleItemPosition
-                    && !recyclerView.canScrollVertically(
-                        1
-                    )
-                ) url?.let {
+                    && !recyclerView.canScrollVertically(1))
+                    url?.let {
                     doLoad(it)
                 }
             }

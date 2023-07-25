@@ -108,24 +108,22 @@ class DailyFragment : Fragment() {
         doBelowBanner()
         doSearch()
 
-
         doRefresh()
-        belowStoryViewModel.belowStoryData.observe(viewLifecycleOwner) {
 
-            belowStoryViewModel.belowStoryList.clear()
-            for (i in 1..3) {
-                belowStoryViewModel.belowStoryList.add(it.itemList[i])
+
+        mBinding.rvBelowStory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                if (totalItemCount - 1 == lastVisibleItemPosition&& !recyclerView.canScrollVertically(1)) {
+                    Log.d("slh", "onScrolled: +1")
+                }
             }
-            for (i in 5..7) {
-                belowStoryViewModel.belowStoryList.add(it.itemList[i])
-            }
-
-            belowStoryAdapter.notifyDataSetChanged()
-        }
-
+        })
     }
-
-
 
 
 
@@ -260,6 +258,10 @@ class DailyFragment : Fragment() {
                 }
             mBinding.belowBanner.adapter = belowBannerAdapter
 
+
+
+
+
             belowStoryViewModel.belowStoryData.observe(viewLifecycleOwner) { result ->
 
                 belowStoryViewModel.belowStoryList.clear()
@@ -273,9 +275,11 @@ class DailyFragment : Fragment() {
                 belowStoryAdapter.notifyDataSetChanged()
 
                 url = result.nextPageUrl
+                Log.d("slh", "doLogic: ${url}")
                 mBinding.rvBelowStory.layoutManager = LinearLayoutManager(context)
                 mBinding.rvBelowStory.adapter = belowStoryAdapter
             }
+
         }
 
 
@@ -324,7 +328,7 @@ class DailyFragment : Fragment() {
 
     private fun doBelowBanner(){
 
-        mBinding.belowBanner.offscreenPageLimit = 3
+        mBinding.belowBanner.offscreenPageLimit = 5
         //定时器播放ViewPager
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
@@ -359,14 +363,17 @@ class DailyFragment : Fragment() {
         })
     }
 
-        private fun isNullorEmpty(str: String?): Boolean {
+    private fun isNullorEmpty(str: String?): Boolean {
             return str == null || "" == str
         }
 
         //初始化历史列表
-        private fun initHistory() {
-            val data = requireActivity().let { SPUtils.getInstance(it).historyList }
-            val layoutParams =
+
+
+    private fun initHistory() {
+
+        val data = requireActivity().let { SPUtils.getInstance(it).historyList }
+        val layoutParams =
                 ViewGroup.MarginLayoutParams(
                     ViewGroup.MarginLayoutParams.WRAP_CONTENT,
                     ViewGroup.MarginLayoutParams.WRAP_CONTENT
@@ -394,6 +401,7 @@ class DailyFragment : Fragment() {
                 // initautoSearch();
             }
         }
+
     private fun initKeyHot() {
         val data = keyViewModel.keyHotList
         Log.d("slh", "initKeyHot: ${data}")

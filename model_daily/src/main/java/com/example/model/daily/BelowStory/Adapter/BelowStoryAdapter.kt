@@ -41,19 +41,33 @@ class BelowStoryAdapter (private val fragment: Fragment, private val data: Array
                 typeText = findViewById(R.id.belowStory_type)
             }
             play.setOnClickListener {
-                data[absoluteAdapterPosition].run {
-                    ARouter.getInstance().build("/play/PlayActivity/")
-                        .withString("playUrl", data.playUrl)
-                        .withString("title", data.title)
-                        .withString("description", data.description)
-                        .withString("category", data.category)
-                        .withInt("shareCount", data.consumption.shareCount)
-                        .withInt("likeCount", data.consumption.realCollectionCount)
-                        .withInt("commentCount", data.consumption.replyCount)
-                        .withInt("id", data.id)
-                        .navigation()
+                if (absoluteAdapterPosition == 0 || absoluteAdapterPosition == 3) {
+                    data[absoluteAdapterPosition].run {
+                        ARouter.getInstance().build("/play/PlayActivity/")
+                            .withString("playUrl", data.content.data.playUrl)
+                            .withString("title", data.content.data.title)
+                            .withString("description", data.content.data.description)
+                            .withString("category", data.content.data.category)
+                            .withInt("shareCount", data.content.data.consumption.shareCount)
+                            .withInt("likeCount", data.content.data.consumption.realCollectionCount)
+                            .withInt("commentCount", data.content.data.consumption.replyCount)
+                            .withInt("id", data.content.data.id)
+                            .navigation()
+                    }
+                } else {
+                    data[absoluteAdapterPosition].run {
+                        ARouter.getInstance().build("/play/PlayActivity/")
+                            .withString("playUrl", data.playUrl)
+                            .withString("title", data.title)
+                            .withString("description", data.description)
+                            .withString("category", data.category)
+                            .withInt("shareCount", data.consumption.shareCount)
+                            .withInt("likeCount", data.consumption.realCollectionCount)
+                            .withInt("commentCount", data.consumption.replyCount)
+                            .withInt("id", data.id)
+                            .navigation()
+                    }
                 }
-            }
 //            }
 //            else {
 //                play.setOnClickListener {
@@ -71,8 +85,9 @@ class BelowStoryAdapter (private val fragment: Fragment, private val data: Array
 //                    }
 //                }
 //            }
-        }
+            }
 
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

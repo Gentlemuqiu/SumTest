@@ -26,7 +26,7 @@
 
             <com.example.model.daily.SuperEditText
                 android:id="@+id/et_search"
-                android:layout_width="360dp"
+                android:layout_width="345dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="10dp"
                 android:drawablePadding="8dp"
@@ -123,12 +123,14 @@
             android:clipChildren="false" />
     </RelativeLayout>
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:singleLine="true"
-            android:text="__________________________________________________________________________________________"/>
+            android:layout_gravity="center"
+            android:text="__________________________________________________________________________________"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -144,7 +146,8 @@
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:singleLine="true"
-            android:text="__________________________________________________________________________________________"/>
+            android:layout_gravity="center"
+            android:text="__________________________________________________________________________________"/>
 
 
         <LinearLayout
@@ -174,7 +177,8 @@
             android:layout_height="wrap_content"
             android:textSize="10sp"
             android:singleLine="true"
-            android:text="__________________________________________________________________________________________________"/>
+            android:layout_gravity="center"
+            android:text="__________________________________________________________________________________"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_belowStory"
@@ -183,7 +187,6 @@
             android:layout_marginTop="10dp">
 
         </androidx.recyclerview.widget.RecyclerView>
-
 
     </LinearLayout>
  </androidx.core.widget.NestedScrollView>
