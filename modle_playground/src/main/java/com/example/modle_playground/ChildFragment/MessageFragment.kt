@@ -31,9 +31,11 @@ class MessageFragment : Fragment() {
     private var data: MutableList<MessageBean.Item> = mutableListOf()
 
     private val messageViewModel by lazy {
-        ViewModelProvider(this)[MessageViewModel::class.java] }
-   private val moreMessageViewModel by lazy {
-        ViewModelProvider(this)[MoreMessageViewModel::class.java] }
+        ViewModelProvider(this)[MessageViewModel::class.java]
+    }
+    private val moreMessageViewModel by lazy {
+        ViewModelProvider(this)[MoreMessageViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,14 +48,14 @@ class MessageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         messageViewModel.getMessageData()
-        mBinding.rvSpecial.layoutManager=LinearLayoutManager(context)
-        adapter=MessageAdapter(this)
+        mBinding.rvSpecial.layoutManager = LinearLayoutManager(context)
+        adapter = MessageAdapter(this)
         messageViewModel.messageData.observe(viewLifecycleOwner) {
             data.addAll(it.itemList)
             adapter.submitList(data)
             url = it.nextPageUrl
         }
-        mBinding.rvSpecial.adapter=adapter
+        mBinding.rvSpecial.adapter = adapter
 
         mBinding.rvSpecial.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             @RequiresApi(Build.VERSION_CODES.O)
@@ -72,6 +74,7 @@ class MessageFragment : Fragment() {
             }
         })
     }
+
     private fun doLoad(url: String) {
         moreMessageViewModel.getMoreMessageData(url)
         moreMessageViewModel.moreMessageData.observe(viewLifecycleOwner) {
@@ -89,7 +92,7 @@ class MessageFragment : Fragment() {
                 }
             }
             adapter.submitList(data)
-            adapter.notifyItemRangeChanged(0,data.size)
+            adapter.notifyItemRangeChanged(0, data.size)
             this.url = it.nextPageUrl
         }
     }

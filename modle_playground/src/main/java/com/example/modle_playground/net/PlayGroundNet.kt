@@ -20,4 +20,13 @@ object PlayGroundNet {
 
     suspend fun getRelatedMessageService(id: Int) =
         relatedMessageService.getRelatedMessageService(id).await()
+
+    private val recommendService = ServiceCreator.create<RecommendService>()
+
+    suspend fun getRecommend() = recommendService.getRecommend().await()
+
+    private val moreRecommendService = ServiceCreator.create<MoreRecommend>()
+
+    suspend fun getMoreRecommend(url: String) = moreRecommendService.getMoreRecommend(url).await()
+
 }

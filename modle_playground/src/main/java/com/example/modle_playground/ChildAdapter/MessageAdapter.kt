@@ -94,18 +94,18 @@ class MessageAdapter(private val fragment: Fragment) :
         bottomSheetDialog.setCancelable(true)
 
         // 设置对话框的监听器（可选）
-        val iv_cover = bottomSheetView.findViewById<ImageView>(R.id.iv_cover)
-        val rv_comment = bottomSheetView.findViewById<RecyclerView>(R.id.rv_comment)
-        val tv_title = bottomSheetView.findViewById<TextView>(R.id.tv_title)
-        val tv_description = bottomSheetView.findViewById<TextView>(R.id.tv_description)
-        Glide.with(fragment).load(itemList.headerImage).into(iv_cover)
-        tv_title.text = itemList.brief
-        tv_description.text = itemList.text
+        val ivCover = bottomSheetView.findViewById<ImageView>(R.id.iv_cover)
+        val rvComment = bottomSheetView.findViewById<RecyclerView>(R.id.rv_comment)
+        val tvTitle = bottomSheetView.findViewById<TextView>(R.id.tv_title)
+        val tvDescription = bottomSheetView.findViewById<TextView>(R.id.tv_description)
+        Glide.with(fragment).load(itemList.headerImage).into(ivCover)
+        tvTitle.text = itemList.brief
+        tvDescription.text = itemList.text
         val adapter= MessageItemAdapter(fragment)
         adapter.submitList(itemList.itemList)
-        rv_comment.adapter =adapter
-        rv_comment.layoutManager = LinearLayoutManager(fragment.activity)
-        rv_comment.setOnClickListener {
+        rvComment.adapter =adapter
+        rvComment.layoutManager = LinearLayoutManager(fragment.activity)
+        rvComment.setOnClickListener {
 
             // 点击后关闭对话框
             bottomSheetDialog.dismiss()
