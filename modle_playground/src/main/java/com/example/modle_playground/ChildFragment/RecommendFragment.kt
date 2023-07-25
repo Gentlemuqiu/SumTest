@@ -11,11 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.modle.playground.databinding.FragmentRecommendBinding
-import com.example.modle_playground.Bean.RecommendBean
 import com.example.modle_playground.ChildAdapter.RecommendAdapter
-import com.example.modle_playground.ViewModel.MoreRecommendViewModel
 import com.example.modle_playground.ViewModel.RecommendViewModel
-import kotlin.properties.Delegates
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,11 +35,6 @@ class RecommendFragment : Fragment() {
 
     private var url: String? = null
 
-    private var data: MutableList<RecommendBean.Item> = mutableListOf()
-
-    private val moreRecommendViewModel by lazy {
-        ViewModelProvider(this)[MoreRecommendViewModel::class.java]
-    }
     private var count: Int = 0
 
     override fun onCreateView(
@@ -58,12 +50,14 @@ class RecommendFragment : Fragment() {
         recommendViewModel.getRecommend()
         adapter = RecommendAdapter(this)
         recommendViewModel.recommendData.observe(viewLifecycleOwner) {
-            val list = it.itemList.filter { element ->
+            url = it.nextPageUrl
+        }
+        recommendViewModel.recommend.observe(viewLifecycleOwner) {
+            val list = it.filter { element ->
                 element.type != "horizontalScrollCard"
             }
-            data.addAll(list)
-            adapter.submitList(data)
-            url = it.nextPageUrl
+            adapter.submitList(list)
+            count=list.size
         }
         mBinding.rvRecommend.adapter = adapter
         mBinding.rvRecommend.layoutManager =
@@ -80,8 +74,10 @@ class RecommendFragment : Fragment() {
 
                 if (layoutManager != null && adapter != null) {
                     // 获取最后一个可见item的位置
-                    val lastVisibleItemPositions = layoutManager.findLastVisibleItemPositions(null)
-                    val lastVisibleItemPosition: Int = getLastVisibleItem(lastVisibleItemPositions)
+                    val lastVisibleItemPositions =
+                        layoutManager.findLastVisibleItemPositions(null)
+                    val lastVisibleItemPosition: Int =
+                        getLastVisibleItem(lastVisibleItemPositions)
 
                     // 获取可见item的数量
                     val visibleItemCount = recyclerView.childCount
@@ -101,26 +97,19 @@ class RecommendFragment : Fragment() {
     }
 
     private fun doLoad(url: String) {
-        moreRecommendViewModel.getMessageData(url)
-        moreRecommendViewModel.moreRecommend.observe(viewLifecycleOwner) {
-            //修复重复添加元素而出现的bug
-            for (newItem in it.itemList) {
-                count = it.itemList.size
-                var exists = false
-                for (existingItem in data) {
-                    if (existingItem.data.header.id === newItem.data.header.id) {
-                        exists = true
-                        break
-                    }
-                }
-                if (!exists) {
-                    data.add(newItem)
-                }
-            }
-            adapter.submitList(data)
-            adapter.notifyItemRangeChanged(data.size - count, data.size)
+        recommendViewModel.getMessageData(url)
+        recommendViewModel.moreRecommend.observe(viewLifecycleOwner) {
             this.url = it.nextPageUrl
         }
+        recommendViewModel.recommend.observe(viewLifecycleOwner) {
+            val list = it.filter { element ->
+                element.type != "horizontalScrollCard"
+            }
+            adapter.submitList(list)
+            adapter.notifyItemRangeChanged(count,list.size)
+            count += list.size
+        }
+
     }
 
     private fun getLastVisibleItem(lastVisibleItemPositions: IntArray): Int {

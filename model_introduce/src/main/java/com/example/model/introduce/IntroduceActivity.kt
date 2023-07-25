@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.model.introduce.Adapter.RelatedIntroduceAdapter
 import com.example.model.introduce.ViewModel.IntroduceViewModel
-import com.example.model.introduce.ViewModel.NewCateGoryViewModel
 import com.example.model.introduce.databinding.ActivityIntroduceBinding
 
 @Route(path = "/introduce/IntroduceActivity/")
@@ -24,12 +23,8 @@ class IntroduceActivity : AppCompatActivity() {
         ViewModelProvider(this)[IntroduceViewModel::class.java]
     }
 
-    private val newCategoryViewModel by lazy {
-        ViewModelProvider(this)[NewCateGoryViewModel::class.java]
-    }
     private lateinit var adapter: RelatedIntroduceAdapter
 
-    private var data: MutableList<RelatedCategory.Item> = mutableListOf()
 
     private var url: String? = null
 
@@ -52,37 +47,29 @@ class IntroduceActivity : AppCompatActivity() {
         }
         adapter = RelatedIntroduceAdapter(this)
         introduceViewModel.relatedCategoryData.observe(this) {
-            val list = it.itemList.filter { element ->
+            url = it.nextPageUrl
+        }
+        introduceViewModel.category.observe(this) {
+            val list = it.filter { element ->
                 element.data.content.data.author != null
             }
-            data.addAll(list)
-            adapter.submitList(data)
-            url = it.nextPageUrl
+            adapter.submitList(list)
         }
         mBinding.rvIntroduce.adapter = adapter
         mBinding.rvIntroduce.layoutManager = LinearLayoutManager(this)
 
-    }
 
-    fun doLoad(url: String) {
-        newCategoryViewModel.getNewCateGory(url)
-        newCategoryViewModel.newCateGoryData.observe(this) {
-            //修复重复添加元素而出现的bug
-            for (newItem in it.itemList) {
-                var exists = false
-                for (existingItem in data) {
-                    if (existingItem.data.header.id === newItem.data.header.id) {
-                        exists = true
-                        break
-                    }
-                }
-                if (!exists) {
-                    data.add(newItem)
-                }
+        fun doLoad(url: String) {
+            introduceViewModel.getNewCateGory(url)
+            introduceViewModel.newCateGoryData.observe(this) {
+                this.url = it.nextPageUrl
             }
-            adapter.submitList(data)
-            adapter.notifyItemRangeChanged(0, data.size)
-            this.url = it.nextPageUrl
+            introduceViewModel.category.observe(this) {
+                val list = it.filter { element ->
+                    element.data.content.data.author != null
+                }
+                adapter.submitList(list)
+            }
         }
     }
 }

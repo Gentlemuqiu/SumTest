@@ -10,14 +10,10 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.model_playground.ViewModel.CateGoryViewModel
-import com.example.modle.playground.R
-import com.example.modle.playground.databinding.FragmentCateBinding
 import com.example.modle.playground.databinding.FragmentMessageBinding
 import com.example.modle_playground.Bean.MessageBean
 import com.example.modle_playground.ChildAdapter.MessageAdapter
 import com.example.modle_playground.ViewModel.MessageViewModel
-import com.example.modle_playground.ViewModel.MoreMessageViewModel
 
 
 class MessageFragment : Fragment() {
@@ -33,9 +29,7 @@ class MessageFragment : Fragment() {
     private val messageViewModel by lazy {
         ViewModelProvider(this)[MessageViewModel::class.java]
     }
-    private val moreMessageViewModel by lazy {
-        ViewModelProvider(this)[MoreMessageViewModel::class.java]
-    }
+    private var count = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,10 +45,12 @@ class MessageFragment : Fragment() {
         mBinding.rvSpecial.layoutManager = LinearLayoutManager(context)
         adapter = MessageAdapter(this)
         messageViewModel.messageData.observe(viewLifecycleOwner) {
-            data.addAll(it.itemList)
-            adapter.submitList(data)
             url = it.nextPageUrl
         }
+       messageViewModel.message.observe(viewLifecycleOwner){
+           adapter.submitList(it)
+           count=it.size
+       }
         mBinding.rvSpecial.adapter = adapter
 
         mBinding.rvSpecial.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -76,24 +72,17 @@ class MessageFragment : Fragment() {
     }
 
     private fun doLoad(url: String) {
-        moreMessageViewModel.getMoreMessageData(url)
-        moreMessageViewModel.moreMessageData.observe(viewLifecycleOwner) {
-            //修复重复添加元素而出现的bug
-            for (newItem in it.itemList) {
-                var exists = false
-                for (existingItem in data) {
-                    if (existingItem.data.id === newItem.data.id) {
-                        exists = true
-                        break
-                    }
-                }
-                if (!exists) {
-                    data.add(newItem)
-                }
-            }
-            adapter.submitList(data)
-            adapter.notifyItemRangeChanged(0, data.size)
+        messageViewModel.getMoreMessageData(url)
+        messageViewModel.moreMessageData.observe(viewLifecycleOwner) {
+
             this.url = it.nextPageUrl
         }
+
+            messageViewModel.message.observe(viewLifecycleOwner){
+                adapter.submitList(it)
+                adapter.notifyItemRangeChanged(count, data.size)
+                count+=it.size
+            }
+
     }
 }
