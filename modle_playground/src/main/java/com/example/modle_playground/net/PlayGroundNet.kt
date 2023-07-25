@@ -8,7 +8,6 @@ object PlayGroundNet {
     private val cateGoryService = ServiceCreator.create<CateGoryService>()
     suspend fun getCategories() = cateGoryService.getCateGory().await()
 
-
     private val messageService = ServiceCreator.create<MessageService>()
 
     suspend fun getMessage() = messageService.getMessage().await()
@@ -21,5 +20,13 @@ object PlayGroundNet {
 
     suspend fun getRelatedMessageService(id: Int) =
         relatedMessageService.getRelatedMessageService(id).await()
+
+    private val recommendService = ServiceCreator.create<RecommendService>()
+
+    suspend fun getRecommend() = recommendService.getRecommend().await()
+
+    private val moreRecommendService = ServiceCreator.create<MoreRecommend>()
+
+    suspend fun getMoreRecommend(url: String) = moreRecommendService.getMoreRecommend(url).await()
 
 }

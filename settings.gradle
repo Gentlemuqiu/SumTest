@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://www.jitpack.io") }
     }
 }
 rootProject.name = "SumTest"
@@ -24,3 +25,4 @@ include ':model_search'
 include ':model_daily'
 include ':model_play'
 include ':model_introduce'
+include ':model_photo'
