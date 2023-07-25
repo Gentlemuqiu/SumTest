@@ -47,6 +47,8 @@ class DailyFragment : Fragment() {
 
     var isStart = false
 
+
+
     private var url: String? = null
 
     private var timer = Timer()
@@ -303,7 +305,6 @@ class DailyFragment : Fragment() {
             if (!isStart){
             // 每2.5秒执行一次
             timer.schedule(timerTask, 0, 2500)
-            isStart = true
             }
 
             mBinding.vp2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -342,7 +343,10 @@ class DailyFragment : Fragment() {
             }
         }
         // 每2.5秒执行一次
-        timer.schedule(timerTask, 0, 2500)
+        if (!isStart){
+            timer.schedule(timerTask, 0, 2500)
+            isStart = true
+        }
 
         mBinding.belowBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
