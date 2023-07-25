@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.SumTest" parent="Base.Theme.SumTest" />
+
 </resources>
