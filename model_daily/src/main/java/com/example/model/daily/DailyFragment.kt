@@ -1,7 +1,11 @@
 package com.example.model.daily
 
 
+import android.annotation.SuppressLint
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -9,12 +13,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.model.daily.BelowBanner.Adapter.BelowBannerAdapter
 import com.example.model.daily.BelowBanner.ViewModel.BelowBannerViewModel
+import com.example.model.daily.BelowStory.Adapter.BelowStoryAdapter
+import com.example.model.daily.BelowStory.Adapter.BelowStoryListAdapter
+import com.example.model.daily.BelowStory.Net.Model.BelowStory
+import com.example.model.daily.BelowStory.Viewmodel.BelowStoryViewModel
+import com.example.model.daily.BelowStory.Viewmodel.NewBelowStoryViewModel
 import com.example.model.daily.Recommend.Adapter.RecommendAdapter
 import com.example.model.daily.Recommend.ViewModel.RecommendViewModel
 import com.example.model.daily.Search.Adapter.RvListAdapter
@@ -35,16 +46,21 @@ class DailyFragment : Fragment() {
     //用来记录是否按压,如果按压,则不滚动
     var isDown = false
 
-
+    private var url: String? = null
 
     private var timer = Timer()
 
+    private  var isLoading = false;
 
     private val bannerViewModel by lazy { ViewModelProvider(this)[BannerViewModel::class.java] }
 
     private val recommendViewModel by lazy { ViewModelProvider(this)[RecommendViewModel::class.java] }
 
     private val belowBannerViewModel by lazy { ViewModelProvider(this)[BelowBannerViewModel::class.java] }
+
+    private val belowStoryViewModel by lazy { ViewModelProvider(this)[BelowStoryViewModel::class.java] }
+
+    private val newBelowStoryViewModel by lazy { ViewModelProvider(this)[NewBelowStoryViewModel::class.java] }
 
     private lateinit var adapter: Vp2Adapter
 
@@ -53,6 +69,11 @@ class DailyFragment : Fragment() {
     private lateinit var rAdapter: RecommendAdapter
 
     private lateinit var belowBannerAdapter: BelowBannerAdapter
+
+    private lateinit var belowStoryAdapter: BelowStoryAdapter
+
+
+    private var data: MutableList<BelowStory.Item> = mutableListOf()
 
 
 
@@ -72,6 +93,7 @@ class DailyFragment : Fragment() {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearch()
@@ -82,16 +104,37 @@ class DailyFragment : Fragment() {
         doSearch()
 
 
+        doRefresh()
+        belowStoryViewModel.belowStoryData.observe(viewLifecycleOwner) {
+
+            belowStoryViewModel.belowStoryList.clear()
+            for (i in 1..3) {
+                belowStoryViewModel.belowStoryList.add(it.itemList[i])
+            }
+            for (i in 5..7) {
+                belowStoryViewModel.belowStoryList.add(it.itemList[i])
+            }
+
+            belowStoryAdapter.notifyDataSetChanged()
+        }
+
     }
 
-//    private fun doRefresh() {
-//        mBinding.swipeRefresh.setOnRefreshListener {
-//            //刷新时,再次请求一次数据
-//            recommendViewModel.getRecommend()
-//            //将刷新状态取消
-//            mBinding.swipeRefresh.isRefreshing = false
-//        }
-//    }
+
+
+
+
+    private fun doRefresh() {
+        mBinding.sf.setOnRefreshListener {
+            //刷新时,再次请求一次数据
+            bannerViewModel.getBannerStory()
+            recommendViewModel.getRecommend()
+            belowBannerViewModel.getBelowBannerStory()
+            belowStoryViewModel.getBelowStory()
+            //将刷新状态取消
+            mBinding.sf.isRefreshing = false
+        }
+    }
 
 
     private fun initSearch() {
@@ -142,6 +185,9 @@ class DailyFragment : Fragment() {
 
             belowBannerViewModel.getBelowBannerStory()
             belowBannerAdapter = BelowBannerAdapter(this,belowBannerViewModel.belowStoryList)
+
+            belowStoryViewModel.getBelowStory()
+            belowStoryAdapter = BelowStoryAdapter(this,belowStoryViewModel.belowStoryList)
         }
 
 
@@ -208,7 +254,24 @@ class DailyFragment : Fragment() {
                     belowBannerAdapter.notifyDataSetChanged()
                 }
             mBinding.belowBanner.adapter = belowBannerAdapter
+
+            belowStoryViewModel.belowStoryData.observe(viewLifecycleOwner) { result ->
+
+                belowStoryViewModel.belowStoryList.clear()
+                for (i in 1..3) {
+                    belowStoryViewModel.belowStoryList.add(result.itemList[i])
+                }
+                for (i in 5..7) {
+                    belowStoryViewModel.belowStoryList.add(result.itemList[i])
+                }
+
+                belowStoryAdapter.notifyDataSetChanged()
+
+                url = result.nextPageUrl
+                mBinding.rvBelowStory.layoutManager = LinearLayoutManager(context)
+                mBinding.rvBelowStory.adapter = belowStoryAdapter
             }
+        }
 
 
         private fun doBanner() {
@@ -339,11 +402,8 @@ class DailyFragment : Fragment() {
             }
             //有数据就继续运行
             val paramItemView = layoutInflater.inflate(R.layout.history_view, null)
-            Log.d("slh", "initKeyHot:${paramItemView}")
             val keyWordTv = paramItemView.findViewById<TextView>(R.id.tv_content)
-            Log.d("slh", "initKeyHot:${keyWordTv}")
             keyWordTv.text = data[i]
-            Log.d("slh", "initKeyHot:${keyWordTv.text}")
             mBinding.rv.addView(paramItemView, layoutParams)
             keyWordTv.setOnClickListener {
                 mBinding.etSearch.setText(data[i])
@@ -351,9 +411,6 @@ class DailyFragment : Fragment() {
                 }
                 //点击事件
             }
-        Log.d("slh", "initKeyHot:ok")
             // initautoSearch();
         }
 }
-
-
