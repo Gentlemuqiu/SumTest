@@ -40,6 +40,7 @@ class IntroduceActivity : AppCompatActivity() {
         mBinding.run {
             tlToolBar.title = description
             tlToolBar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+            tlToolBar.setTitleTextColor(resources.getColor(R.color.white))
             setSupportActionBar(tlToolBar)
         }
         mBinding.tlToolBar.setNavigationOnClickListener {
