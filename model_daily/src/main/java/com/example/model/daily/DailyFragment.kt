@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.model.daily.BelowBanner.Adapter.BelowBannerAdapter
 import com.example.model.daily.BelowBanner.ViewModel.BelowBannerViewModel
 import com.example.model.daily.BelowStory.Adapter.BelowStoryAdapter
@@ -40,15 +41,19 @@ import com.example.model.daily.databinding.FragmentDailyBinding
 import java.util.Timer
 import java.util.TimerTask
 
-
+@Route(path = "/daily/DailyFragment/")
 class DailyFragment : Fragment() {
 
     //用来记录是否按压,如果按压,则不滚动
     var isDown = false
 
+    var isStart = false
+
     private var url: String? = null
 
     private var timer = Timer()
+
+    private lateinit var  timerTask: TimerTask
 
     private  var isLoading = false;
 
@@ -280,7 +285,7 @@ class DailyFragment : Fragment() {
             mBinding.vp2.offscreenPageLimit = 3
             mBinding.vp2.setPageTransformer(ScaleTransformer())
             //定时器播放ViewPager
-            val timerTask: TimerTask = object : TimerTask() {
+            timerTask = object : TimerTask() {
                 override fun run() {
                     if (!isDown) {
                         //获取到当前的位置
@@ -292,8 +297,12 @@ class DailyFragment : Fragment() {
                     }
                 }
             }
+
+            if (!isStart){
             // 每2.5秒执行一次
             timer.schedule(timerTask, 0, 2500)
+            isStart = true
+            }
 
             mBinding.vp2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
