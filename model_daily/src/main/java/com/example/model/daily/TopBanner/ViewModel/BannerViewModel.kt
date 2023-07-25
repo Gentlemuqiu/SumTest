@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.model.daily.TopBanner.Repository
+import com.example.model.daily.TopBanner.net.Repository
 import com.example.model.daily.TopBanner.net.BannerNetWork
 import com.example.model.daily.TopBanner.net.model.Story
 import kotlinx.coroutines.Dispatchers

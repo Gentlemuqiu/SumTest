@@ -1,11 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sf"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".DailyFragment">
+    <FrameLayout
+        android:id="@+id/search_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.example.model.daily.SuperEditText
+            android:id="@+id/et_search"
+            android:layout_width="345dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:drawablePadding="8dp"
+            android:hint="搜索视频、作者、用户及标签"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/search_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:text="取消"
+            android:textSize="14sp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/search_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="搜索记录"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="20dp"
+                android:text="删除记录"
+                android:textColor="#0000FF"
+                android:textSize="16sp" />
+
+        </FrameLayout>
+
+        <com.example.model.daily.CustomView.SelfAdapterText
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索推荐"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"/>
+
+        <com.example.model.daily.CustomView.SelfAdapterText
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"/>
+
+
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
  <androidx.core.widget.NestedScrollView
      android:layout_width="match_parent"
@@ -15,93 +103,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-
-
-        <FrameLayout
-            android:id="@+id/search_block"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <com.example.model.daily.SuperEditText
-                android:id="@+id/et_search"
-                android:layout_width="345dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="10dp"
-                android:drawablePadding="8dp"
-                android:hint="搜索视频、作者、用户及标签"
-                android:imeOptions="actionSearch"
-                android:singleLine="true"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/search_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:text="取消"
-                android:textSize="14sp" />
-        </FrameLayout>
-
-        +<LinearLayout
-            android:id="@+id/search_history"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="搜索记录"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tv_clear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="20dp"
-                    android:text="删除记录"
-                    android:textColor="#0000FF"
-                    android:textSize="16sp" />
-
-            </FrameLayout>
-
-            <com.example.model.daily.CustomView.SelfAdapterText
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索推荐"
-                android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="16sp"/>
-
-            <com.example.model.daily.CustomView.SelfAdapterText
-                android:id="@+id/rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"/>
-
-
-        </LinearLayout>
-
 
 
     <LinearLayout
@@ -192,3 +193,4 @@
  </androidx.core.widget.NestedScrollView>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

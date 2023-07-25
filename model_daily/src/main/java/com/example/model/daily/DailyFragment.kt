@@ -163,12 +163,12 @@ class DailyFragment : Fragment() {
             })
             mBinding.etSearch.setOnClickListener(View.OnClickListener {
                 mBinding.searchHistory.visibility = View.VISIBLE
-                mBinding.rl.visibility = View.GONE
+                mBinding.sf.visibility = View.GONE
                 initKeyHot()
             })
             mBinding.searchBack.setOnClickListener(View.OnClickListener {
                 mBinding.searchHistory.visibility = View.GONE
-                mBinding.rl.visibility = View.VISIBLE
+                mBinding.sf.visibility = View.VISIBLE
             })
         }
 
@@ -369,6 +369,7 @@ class DailyFragment : Fragment() {
         //初始化历史列表
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun initHistory() {
 
         val data = requireActivity().let { SPUtils.getInstance(it).historyList }
