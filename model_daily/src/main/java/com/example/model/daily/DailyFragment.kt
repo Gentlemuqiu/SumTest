@@ -2,16 +2,21 @@ package com.example.model.daily
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +30,7 @@ import com.example.model.daily.BelowStory.Net.Model.BelowStory
 import com.example.model.daily.BelowStory.Viewmodel.BelowStoryViewModel
 import com.example.model.daily.BelowStory.Viewmodel.NewBelowStoryViewModel
 import com.example.model.daily.CustomView.ArcUpTransformer
+import com.example.model.daily.CustomView.ScaleTransformer
 import com.example.model.daily.Recommend.Adapter.RecommendAdapter
 import com.example.model.daily.Recommend.ViewModel.RecommendViewModel
 import com.example.model.daily.Search.Adapter.RvListAdapter
@@ -32,12 +38,11 @@ import com.example.model.daily.Search.SPUtils
 import com.example.model.daily.Search.SPUtils.Companion.getInstance
 import com.example.model.daily.Search.ViewModel.KeyViewModel
 import com.example.model.daily.TopBanner.Adapter.Vp2Adapter
-import com.example.model.daily.CustomView.ScaleTransformer
 import com.example.model.daily.TopBanner.ViewModel.BannerViewModel
 import com.example.model.daily.databinding.FragmentDailyBinding
-
 import java.util.Timer
 import java.util.TimerTask
+
 
 @Route(path = "/daily/DailyFragment/")
 class DailyFragment : Fragment() {
@@ -163,15 +168,39 @@ class DailyFragment : Fragment() {
                 mBinding.listView.removeAllViews()
                 activity?.let { it1 -> getInstance(it1).cleanHistory() }
             })
-            mBinding.etSearch.setOnClickListener(View.OnClickListener {
-                mBinding.searchHistory.visibility = View.VISIBLE
-                mBinding.sf.visibility = View.GONE
-                initKeyHot()
-            })
+//            mBinding.etSearch.setOnClickListener(View.OnClickListener {
+//                mBinding.searchHistory.visibility = View.VISIBLE
+//                mBinding.sf.visibility = View.GONE
+//                initKeyHot()
+//            })
+
             mBinding.searchBack.setOnClickListener(View.OnClickListener {
                 mBinding.searchHistory.visibility = View.GONE
                 mBinding.sf.visibility = View.VISIBLE
+                mBinding.etSearch.clearFocus()
+                fun hideKeyboard(context: Context, editText: EditText) {
+                    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(editText.windowToken, 0)
+                }
             })
+            class EtOnTouchListener() : OnTouchListener {
+                var touch_flag = 0
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    touch_flag++
+                    if (touch_flag == 2) {
+                        touch_flag = 0
+                        mBinding.searchHistory.visibility = View.VISIBLE
+                        mBinding.sf.visibility = View.GONE
+                        initKeyHot()
+                    }
+                    return false
+                }
+            }
+
+
+            mBinding.etSearch.setOnTouchListener(EtOnTouchListener())
+
+
         }
 
         private fun initView() {

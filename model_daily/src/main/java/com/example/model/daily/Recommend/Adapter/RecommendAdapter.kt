@@ -1,6 +1,5 @@
 package com.example.model.daily.Recommend.Adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,7 +95,7 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.recommend_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.daily_recommend_item, parent, false)
         return ViewHolder(view)
     }
 
