@@ -7,9 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.model.daily.BelowBanner.net.BelowBannerNetWork
 import com.example.model.daily.BelowBanner.net.model.BelowStory
-import com.example.model.daily.TopBanner.Repository
-import com.example.model.daily.TopBanner.net.BannerNetWork
-import com.example.model.daily.TopBanner.net.model.Story
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

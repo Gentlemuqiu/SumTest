@@ -18,9 +18,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
+        android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/play"
+        android:src="@drawable/recommand_play"
         app:layout_constraintBottom_toBottomOf="@+id/recommend_cover"
         app:layout_constraintEnd_toEndOf="@+id/recommend_cover"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,14 +66,27 @@
         app:layout_constraintVertical_bias="0.75" />
 
     <TextView
-        android:id="@+id/duration"
+        android:id="@+id/recommend_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/author"
         app:layout_constraintTop_toBottomOf="@+id/recommend_cover"
         app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/recommend_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recommend_type"
+        app:layout_constraintTop_toBottomOf="@+id/recommend_title"
+        app:layout_constraintVertical_bias="0.483" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
