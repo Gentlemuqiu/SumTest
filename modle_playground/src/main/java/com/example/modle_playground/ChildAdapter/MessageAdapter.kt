@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide
 import com.example.modle.playground.R
 import com.example.modle_playground.Bean.MessageBean
 import com.example.modle_playground.Bean.RelatedMessage
+import com.example.modle_playground.MyImage
+import com.example.modle_playground.MyImage.imageArray1
 import com.example.modle_playground.ViewModel.RelatedMessageViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -48,10 +50,9 @@ class MessageAdapter(private val fragment: Fragment) :
     private lateinit var bottomSheetView: View
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val ib_topic: ImageButton
+        val ibTopic: ImageView
 
         init {
-
             // 创建 BottomSheetDialog 对象
             bottomSheetDialog = BottomSheetDialog(fragment.requireContext())
 
@@ -60,9 +61,9 @@ class MessageAdapter(private val fragment: Fragment) :
                 .inflate(R.layout.message_item, null)
             bottomSheetDialog.setContentView(bottomSheetView)
             view.run {
-                ib_topic = findViewById(R.id.ib)
+                ibTopic = findViewById(R.id.ib)
             }
-            ib_topic.setOnClickListener {
+            ibTopic.setOnClickListener {
                 getItem(absoluteAdapterPosition).run {
                     relatedMessage.getRelatedMessage(data.id)
                 }
@@ -83,7 +84,13 @@ class MessageAdapter(private val fragment: Fragment) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        holder.run {
+            getItem(position).run {
+                Glide.with(itemView).
+                load(imageArray1[position%imageArray1.size]  )
+                    .into(ibTopic)
+            }
+        }
     }
 
 
@@ -101,9 +108,9 @@ class MessageAdapter(private val fragment: Fragment) :
         Glide.with(fragment).load(itemList.headerImage).into(ivCover)
         tvTitle.text = itemList.brief
         tvDescription.text = itemList.text
-        val adapter= MessageItemAdapter(fragment)
+        val adapter = MessageItemAdapter(fragment)
         adapter.submitList(itemList.itemList)
-        rvComment.adapter =adapter
+        rvComment.adapter = adapter
         rvComment.layoutManager = LinearLayoutManager(fragment.activity)
         rvComment.setOnClickListener {
 

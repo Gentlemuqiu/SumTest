@@ -71,10 +71,10 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textColor="?android:attr/textColorPrimary"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
