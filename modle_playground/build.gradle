@@ -61,6 +61,8 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":model_photo"))
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation(project(":model_introduce"))
     implementation(project(":lib_api"))
     implementation(project(":lib_netWork"))

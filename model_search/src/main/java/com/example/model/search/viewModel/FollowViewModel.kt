@@ -16,6 +16,9 @@ import kotlinx.coroutines.launch
 class FollowViewModel() : ViewModel() {
     private val _followData = MutableLiveData<Follow>()
     val followData: LiveData<Follow> get() = _followData
+
+    val follow = MutableLiveData<List<Follow.Item>>()
+
     fun getFollow() {
         viewModelScope.launch {
             flow {
@@ -24,10 +27,29 @@ class FollowViewModel() : ViewModel() {
             }.flowOn(Dispatchers.IO)
                 .catch { e ->
                     e.printStackTrace()
-                    Log.d("hui", "getAllRanking:${e} ")
                 }
                 .collect {
                     _followData.value = it
+                    follow.value=it.itemList
+                }
+        }
+    }
+
+    private val _newFollowData = MutableLiveData<Follow>()
+    val newFollowData: LiveData<Follow> get() = _newFollowData
+    fun getNewFollow(url: String) {
+        viewModelScope.launch {
+            flow {
+                val list = SearchNet.getNewFollow(url)
+                emit(list)
+            }.flowOn(Dispatchers.IO)
+                .catch { e ->
+                    e.printStackTrace()
+                }
+                .collect {
+                    _newFollowData.value = it
+                    val oldData = follow.value ?: emptyList()
+                    follow.value=oldData+it.itemList
                 }
         }
     }
