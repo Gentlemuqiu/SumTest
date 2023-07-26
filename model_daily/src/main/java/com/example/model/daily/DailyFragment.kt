@@ -3,6 +3,7 @@ package com.example.model.daily
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -82,7 +83,6 @@ class DailyFragment : Fragment() {
 
     private lateinit var belowStoryAdapter: BelowStoryAdapter
 
-
     private var data: MutableList<BelowStory.Item> = mutableListOf()
 
 
@@ -132,7 +132,6 @@ class DailyFragment : Fragment() {
     }
 
 
-
     private fun doRefresh() {
         mBinding.sf.setOnRefreshListener {
             //刷新时,再次请求一次数据
@@ -148,6 +147,7 @@ class DailyFragment : Fragment() {
 
     private fun initSearch() {
         initHistory()
+        mBinding.etSearch.setTextColor(Color.BLACK)
         mBinding.etSearch.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 val searchKey = mBinding.etSearch.text.toString()
@@ -179,12 +179,14 @@ class DailyFragment : Fragment() {
                 mBinding.searchHistory.visibility = View.GONE
                 mBinding.sf.visibility = View.VISIBLE
                 mBinding.etSearch.clearFocus()
+                mBinding.etSearch.setText("")
                 fun hideKeyboard(context: Context, editText: EditText) {
                     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(editText.windowToken, 0)
                 }
                 context?.let { it1 -> hideKeyboard(it1, mBinding.etSearch) }
             })
+
             class EtOnTouchListener() : OnTouchListener {
                 var touch_flag = 0
                 override fun onTouch(v: View, event: MotionEvent): Boolean {
@@ -201,7 +203,6 @@ class DailyFragment : Fragment() {
 
 
             mBinding.etSearch.setOnTouchListener(EtOnTouchListener())
-
 
         }
 
@@ -315,7 +316,7 @@ class DailyFragment : Fragment() {
 
 
         private fun doBanner() {
-
+            mBinding.vp2.setCurrentItem(100,true)
             mBinding.vp2.setPageTransformer(MarginPageTransformer(20))
             mBinding.vp2.offscreenPageLimit = 3
             mBinding.vp2.setPageTransformer(ScaleTransformer())
