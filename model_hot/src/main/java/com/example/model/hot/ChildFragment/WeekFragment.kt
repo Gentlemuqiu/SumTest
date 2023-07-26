@@ -29,10 +29,10 @@ class WeekFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = RankAdapter(this)
-        weekViewModel.getWeekRanking()
+        weekViewModel.getWeekRanking(requireContext())
         doRefresh()
         weekViewModel.weekRankingData.observe(viewLifecycleOwner) {
-            adapter.submitList(it.itemList)
+            adapter.submitList(it?.itemList)
         }
         mBinding.rvWeek.layoutManager = LinearLayoutManager(context)
         mBinding.rvWeek.adapter = adapter
@@ -41,7 +41,7 @@ class WeekFragment : Fragment() {
     private fun doRefresh() {
         mBinding.swipeRefresh1.setOnRefreshListener {
             //刷新时,再次请求一次数据
-            weekViewModel.getWeekRanking()
+            weekViewModel.getWeekRanking(requireContext())
             //将刷新状态取消
             mBinding.swipeRefresh1.isRefreshing = false
         }
