@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.example.lib.api.MosaicView
         android:id="@+id/iv_icon"
         android:layout_width="match_parent"
         android:layout_height="200dp"
