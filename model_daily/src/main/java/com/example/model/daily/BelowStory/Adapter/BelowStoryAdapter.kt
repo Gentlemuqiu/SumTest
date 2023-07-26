@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
@@ -30,17 +32,19 @@ class BelowStoryAdapter (private val fragment: Fragment, private val data: Array
         val titleText: TextView
         val timeText: TextView
         val typeText: TextView
+        val belowStoryItem : CardView
 
 
         init {
             view.run {
+                belowStoryItem = findViewById(R.id.belowStory_item)
                 play = findViewById(R.id.belowStory_play)
                 coverImage = findViewById(R.id.belowStory_cover)
                 titleText = findViewById(R.id.belowStory_title)
                 timeText = findViewById(R.id.belowStory_duration)
                 typeText = findViewById(R.id.belowStory_type)
             }
-            coverImage.setOnClickListener {
+            belowStoryItem.setOnClickListener {
                 if (absoluteAdapterPosition == 0 || absoluteAdapterPosition == 3) {
                     data[absoluteAdapterPosition].run {
                         ARouter.getInstance().build("/play/PlayActivity/")
