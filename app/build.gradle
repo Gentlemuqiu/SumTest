@@ -14,10 +14,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
+/*增加代码压缩和资源文件压缩*/
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
         }
     }
 
