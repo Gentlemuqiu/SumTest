@@ -1,6 +1,5 @@
 package com.example.model.introduce.Adapter
 
-import Share
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +12,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.lib.api.Share2
 import com.example.lib.api.formatNumberToTime
 import com.example.model.introduce.R
 import com.example.model.introduce.RelatedCategory
-import com.example.model.introduce.net.getRelatedCategory
 
 class RelatedIntroduceAdapter(private val context: Activity) :
     ListAdapter<RelatedCategory.Item, RelatedIntroduceAdapter.ViewHolder>(
@@ -44,7 +43,6 @@ class RelatedIntroduceAdapter(private val context: Activity) :
         val authorText: TextView
         val timeText: TextView
         private val shareButton: Button
-
         init {
             view.run {
                 playImage = findViewById(R.id.rank_play)
@@ -85,7 +83,9 @@ class RelatedIntroduceAdapter(private val context: Activity) :
         holder.run {
             getItem(position).run {
                 Glide.with(itemView).load(data.content.data.cover.detail).into(playImage)
-                Glide.with(itemView).load(data.content.data.author.icon).into(iconImage)
+                Glide.with(itemView).load(data.content.data.author.icon).transform(
+                    RoundedCorners(180)
+                ).into(iconImage)
                 titleText.text = data.content.data.title
                 authorText.text = data.content.data.author.name
                 timeText.text = formatNumberToTime(data.content.data.duration)
