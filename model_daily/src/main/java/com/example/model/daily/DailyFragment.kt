@@ -1,20 +1,36 @@
 package com.example.model.daily
 
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.model.daily.BelowBanner.Adapter.BelowBannerAdapter
 import com.example.model.daily.BelowBanner.ViewModel.BelowBannerViewModel
+import com.example.model.daily.BelowStory.Adapter.BelowStoryAdapter
+import com.example.model.daily.BelowStory.Net.Model.BelowStory
+import com.example.model.daily.BelowStory.Viewmodel.BelowStoryViewModel
+import com.example.model.daily.BelowStory.Viewmodel.NewBelowStoryViewModel
+import com.example.model.daily.CustomView.ArcUpTransformer
+import com.example.model.daily.CustomView.ScaleTransformer
 import com.example.model.daily.Recommend.Adapter.RecommendAdapter
 import com.example.model.daily.Recommend.ViewModel.RecommendViewModel
 import com.example.model.daily.Search.Adapter.RvListAdapter
@@ -22,29 +38,39 @@ import com.example.model.daily.Search.SPUtils
 import com.example.model.daily.Search.SPUtils.Companion.getInstance
 import com.example.model.daily.Search.ViewModel.KeyViewModel
 import com.example.model.daily.TopBanner.Adapter.Vp2Adapter
-import com.example.model.daily.TopBanner.ScaleTransformer
 import com.example.model.daily.TopBanner.ViewModel.BannerViewModel
 import com.example.model.daily.databinding.FragmentDailyBinding
-
 import java.util.Timer
 import java.util.TimerTask
 
 
+@Route(path = "/daily/DailyFragment/")
 class DailyFragment : Fragment() {
 
     //用来记录是否按压,如果按压,则不滚动
     var isDown = false
 
+    var isStart = false
 
+
+
+    private var url: String? = null
 
     private var timer = Timer()
 
+    private lateinit var  timerTask: TimerTask
+
+    private  var isLoading = false;
 
     private val bannerViewModel by lazy { ViewModelProvider(this)[BannerViewModel::class.java] }
 
     private val recommendViewModel by lazy { ViewModelProvider(this)[RecommendViewModel::class.java] }
 
     private val belowBannerViewModel by lazy { ViewModelProvider(this)[BelowBannerViewModel::class.java] }
+
+    private val belowStoryViewModel by lazy { ViewModelProvider(this)[BelowStoryViewModel::class.java] }
+
+    private val newBelowStoryViewModel by lazy { ViewModelProvider(this)[NewBelowStoryViewModel::class.java] }
 
     private lateinit var adapter: Vp2Adapter
 
@@ -53,6 +79,11 @@ class DailyFragment : Fragment() {
     private lateinit var rAdapter: RecommendAdapter
 
     private lateinit var belowBannerAdapter: BelowBannerAdapter
+
+    private lateinit var belowStoryAdapter: BelowStoryAdapter
+
+
+    private var data: MutableList<BelowStory.Item> = mutableListOf()
 
 
 
@@ -72,6 +103,7 @@ class DailyFragment : Fragment() {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility", "NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSearch()
@@ -81,17 +113,37 @@ class DailyFragment : Fragment() {
         doBelowBanner()
         doSearch()
 
+        doRefresh()
+
+
+        mBinding.rvBelowStory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                if (totalItemCount - 1 == lastVisibleItemPosition&& !recyclerView.canScrollVertically(1)) {
+                    Log.d("slh", "onScrolled: +1")
+                }
+            }
+        })
 
     }
 
-//    private fun doRefresh() {
-//        mBinding.swipeRefresh.setOnRefreshListener {
-//            //刷新时,再次请求一次数据
-//            recommendViewModel.getRecommend()
-//            //将刷新状态取消
-//            mBinding.swipeRefresh.isRefreshing = false
-//        }
-//    }
+
+
+    private fun doRefresh() {
+        mBinding.sf.setOnRefreshListener {
+            //刷新时,再次请求一次数据
+            bannerViewModel.getBannerStory()
+            recommendViewModel.getRecommend()
+            belowBannerViewModel.getBelowBannerStory()
+            belowStoryViewModel.getBelowStory()
+            //将刷新状态取消
+            mBinding.sf.isRefreshing = false
+        }
+    }
 
 
     private fun initSearch() {
@@ -117,15 +169,40 @@ class DailyFragment : Fragment() {
                 mBinding.listView.removeAllViews()
                 activity?.let { it1 -> getInstance(it1).cleanHistory() }
             })
-            mBinding.etSearch.setOnClickListener(View.OnClickListener {
-                mBinding.searchHistory.visibility = View.VISIBLE
-                mBinding.rl.visibility = View.GONE
-                initKeyHot()
-            })
+//            mBinding.etSearch.setOnClickListener(View.OnClickListener {
+//                mBinding.searchHistory.visibility = View.VISIBLE
+//                mBinding.sf.visibility = View.GONE
+//                initKeyHot()
+//            })
+
             mBinding.searchBack.setOnClickListener(View.OnClickListener {
                 mBinding.searchHistory.visibility = View.GONE
-                mBinding.rl.visibility = View.VISIBLE
+                mBinding.sf.visibility = View.VISIBLE
+                mBinding.etSearch.clearFocus()
+                fun hideKeyboard(context: Context, editText: EditText) {
+                    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(editText.windowToken, 0)
+                }
+                context?.let { it1 -> hideKeyboard(it1, mBinding.etSearch) }
             })
+            class EtOnTouchListener() : OnTouchListener {
+                var touch_flag = 0
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    touch_flag++
+                    if (touch_flag == 2) {
+                        touch_flag = 0
+                        mBinding.searchHistory.visibility = View.VISIBLE
+                        mBinding.sf.visibility = View.GONE
+                        initKeyHot()
+                    }
+                    return false
+                }
+            }
+
+
+            mBinding.etSearch.setOnTouchListener(EtOnTouchListener())
+
+
         }
 
         private fun initView() {
@@ -142,6 +219,9 @@ class DailyFragment : Fragment() {
 
             belowBannerViewModel.getBelowBannerStory()
             belowBannerAdapter = BelowBannerAdapter(this,belowBannerViewModel.belowStoryList)
+
+            belowStoryViewModel.getBelowStory()
+            belowStoryAdapter = BelowStoryAdapter(this,belowStoryViewModel.belowStoryList)
         }
 
 
@@ -208,7 +288,30 @@ class DailyFragment : Fragment() {
                     belowBannerAdapter.notifyDataSetChanged()
                 }
             mBinding.belowBanner.adapter = belowBannerAdapter
+
+
+
+
+
+            belowStoryViewModel.belowStoryData.observe(viewLifecycleOwner) { result ->
+
+                belowStoryViewModel.belowStoryList.clear()
+                for (i in 1..3) {
+                    belowStoryViewModel.belowStoryList.add(result.itemList[i])
+                }
+                for (i in 5..7) {
+                    belowStoryViewModel.belowStoryList.add(result.itemList[i])
+                }
+
+                belowStoryAdapter.notifyDataSetChanged()
+
+                url = result.nextPageUrl
+                Log.d("slh", "doLogic: ${url}")
+                mBinding.rvBelowStory.layoutManager = LinearLayoutManager(context)
+                mBinding.rvBelowStory.adapter = belowStoryAdapter
             }
+
+        }
 
 
         private fun doBanner() {
@@ -217,7 +320,7 @@ class DailyFragment : Fragment() {
             mBinding.vp2.offscreenPageLimit = 3
             mBinding.vp2.setPageTransformer(ScaleTransformer())
             //定时器播放ViewPager
-            val timerTask: TimerTask = object : TimerTask() {
+            timerTask = object : TimerTask() {
                 override fun run() {
                     if (!isDown) {
                         //获取到当前的位置
@@ -229,8 +332,11 @@ class DailyFragment : Fragment() {
                     }
                 }
             }
+
+            if (!isStart){
             // 每2.5秒执行一次
             timer.schedule(timerTask, 0, 2500)
+            }
 
             mBinding.vp2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
@@ -252,7 +358,8 @@ class DailyFragment : Fragment() {
 
     private fun doBelowBanner(){
 
-        mBinding.belowBanner.offscreenPageLimit = 3
+        mBinding.belowBanner.setPageTransformer(ArcUpTransformer())
+        mBinding.belowBanner.offscreenPageLimit = 5
         //定时器播放ViewPager
         val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
@@ -267,7 +374,10 @@ class DailyFragment : Fragment() {
             }
         }
         // 每2.5秒执行一次
-        timer.schedule(timerTask, 0, 2500)
+        if (!isStart){
+            timer.schedule(timerTask, 0, 2500)
+            isStart = true
+        }
 
         mBinding.belowBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
@@ -287,14 +397,18 @@ class DailyFragment : Fragment() {
         })
     }
 
-        private fun isNullorEmpty(str: String?): Boolean {
+    private fun isNullorEmpty(str: String?): Boolean {
             return str == null || "" == str
         }
 
         //初始化历史列表
-        private fun initHistory() {
-            val data = requireActivity().let { SPUtils.getInstance(it).historyList }
-            val layoutParams =
+
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun initHistory() {
+
+        val data = requireActivity().let { SPUtils.getInstance(it).historyList }
+        val layoutParams =
                 ViewGroup.MarginLayoutParams(
                     ViewGroup.MarginLayoutParams.WRAP_CONTENT,
                     ViewGroup.MarginLayoutParams.WRAP_CONTENT
@@ -322,6 +436,7 @@ class DailyFragment : Fragment() {
                 // initautoSearch();
             }
         }
+
     private fun initKeyHot() {
         val data = keyViewModel.keyHotList
         Log.d("slh", "initKeyHot: ${data}")
@@ -339,11 +454,8 @@ class DailyFragment : Fragment() {
             }
             //有数据就继续运行
             val paramItemView = layoutInflater.inflate(R.layout.history_view, null)
-            Log.d("slh", "initKeyHot:${paramItemView}")
             val keyWordTv = paramItemView.findViewById<TextView>(R.id.tv_content)
-            Log.d("slh", "initKeyHot:${keyWordTv}")
             keyWordTv.text = data[i]
-            Log.d("slh", "initKeyHot:${keyWordTv.text}")
             mBinding.rv.addView(paramItemView, layoutParams)
             keyWordTv.setOnClickListener {
                 mBinding.etSearch.setText(data[i])
@@ -351,9 +463,6 @@ class DailyFragment : Fragment() {
                 }
                 //点击事件
             }
-        Log.d("slh", "initKeyHot:ok")
             // initautoSearch();
         }
 }
-
-

@@ -29,6 +29,10 @@ class HomeActivity : AppCompatActivity() {
         val playGroundFragment = PlayGroundFragment()
         val dailyFragment = DailyFragment()
 
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.bottom_fragment, dailyFragment)
+            .commit()
+
         mBinding.mBottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.item_daily -> {
