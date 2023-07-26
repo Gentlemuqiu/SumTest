@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
@@ -31,10 +33,12 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
         val authorText: TextView
         val timeText: TextView
         val typeText: TextView
+        val dailyRecommendItem : ConstraintLayout
 
 
         init {
             view.run {
+                dailyRecommendItem = findViewById(R.id.daily_recommend_item)
                 play = findViewById(R.id.play)
                 coverImage = findViewById(R.id.recommend_cover)
                 iconImage = findViewById(R.id.icon)
@@ -43,7 +47,7 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
                 timeText = findViewById(R.id.recommend_duration)
                 typeText = findViewById(R.id.recommend_type)
             }
-            coverImage.setOnClickListener {
+            dailyRecommendItem.setOnClickListener {
                 if (absoluteAdapterPosition == 0 || absoluteAdapterPosition == 3 ) {
                     data[absoluteAdapterPosition].run {
                         ARouter.getInstance().build("/play/PlayActivity/")
