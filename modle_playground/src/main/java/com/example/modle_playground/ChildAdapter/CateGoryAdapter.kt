@@ -1,27 +1,21 @@
 package com.example.modle_playground.ChildAdapter
 
 import android.animation.ObjectAnimator
-import android.content.res.Resources
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.launcher.ARouter
-import com.bumptech.glide.Glide
+import com.example.lib.api.MosaicView
 import com.example.lib.api.Utils
 import com.example.modle.playground.R
 import com.example.modle_playground.Bean.CateGoryBean
-import com.example.modle_playground.MyImage
 import com.example.modle_playground.MyImage.imageArray
-import com.example.modle_playground.ShutterView
 
 class CateGoryAdapter(private val fragment: Fragment) : ListAdapter<CateGoryBean.CateGoryBeanItem,
         CateGoryAdapter.ViewHolder>(object :
@@ -41,9 +35,9 @@ class CateGoryAdapter(private val fragment: Fragment) : ListAdapter<CateGoryBean
     }
 }) {
 
-
+ private lateinit var anim :ObjectAnimator
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val iconImage: ImageView
+        val iconImage: MosaicView
         val tvCategories: TextView
 
         init {
@@ -59,6 +53,13 @@ class CateGoryAdapter(private val fragment: Fragment) : ListAdapter<CateGoryBean
                         .navigation(fragment.activity?.application?.applicationContext)
                 }
             }
+            val anim = ObjectAnimator.ofInt(iconImage, "ratio", - 100, 100)
+            anim.duration = 2000
+            iconImage.setGridCount(20)
+            iconImage.setOffset(5)
+            anim.start()
+
+
         }
     }
 
@@ -75,10 +76,13 @@ class CateGoryAdapter(private val fragment: Fragment) : ListAdapter<CateGoryBean
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.run {
             getItem(position).run {
-                Glide.with(itemView).load(imageArray[position])
-                    .into(iconImage)
+                val bitmap = BitmapFactory.decodeResource(fragment.resources, imageArray[position])
+                iconImage.setImageBitmap(bitmap)
                 tvCategories.text = name
             }
+
+
+
         }
     }
 }

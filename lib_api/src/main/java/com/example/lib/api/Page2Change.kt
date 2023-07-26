@@ -9,7 +9,6 @@ import androidx.viewpager2.widget.ViewPager2
 class Page2Change() : ViewPager2.PageTransformer {
     private val SCALE_VALUE = 1f
 
-
     //旋转
     private val ROTATION = 60f
 
@@ -22,7 +21,6 @@ class Page2Change() : ViewPager2.PageTransformer {
         } else {
             view.visibility = View.VISIBLE
         }
-
 
         //当前view
         if (position == 0f) {

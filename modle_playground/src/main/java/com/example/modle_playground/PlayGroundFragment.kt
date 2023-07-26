@@ -1,15 +1,18 @@
 package com.example.modle_playground
 
+import android.animation.ObjectAnimator
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lib.api.Page3Change
+import com.example.modle.playground.R
 import com.example.modle.playground.databinding.FragmentPlayGroundBinding
 import com.example.modle_playground.ChildFragment.CateFragment
-import com.example.modle_playground.ChildFragment.RecommendFragment
 import com.example.modle_playground.ChildFragment.MessageFragment
+import com.example.modle_playground.ChildFragment.RecommendFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -32,8 +35,9 @@ class PlayGroundFragment : Fragment() {
         initData();
     }
 
+
     private fun initData() {
-        mBinding.vp2Context.isUserInputEnabled=true
+        mBinding.vp2Context.isUserInputEnabled = true
         mBinding.vp2Context.isSaveEnabled = false
         mBinding.vp2Context.setPageTransformer(Page3Change())
         nameList.add("分类")
@@ -42,7 +46,7 @@ class PlayGroundFragment : Fragment() {
         val adapter = PlayGroundAdapter(childFragmentManager, lifecycle)
         val cateFragment = CateFragment()
         val messageFragment = MessageFragment()
-        val recommendFragment=RecommendFragment()
+        val recommendFragment = RecommendFragment()
         adapter.addFragment(cateFragment)
         adapter.addFragment(messageFragment)
         adapter.addFragment(recommendFragment)
