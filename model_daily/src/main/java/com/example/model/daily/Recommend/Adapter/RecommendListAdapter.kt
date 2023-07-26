@@ -79,7 +79,7 @@ class RecommendListAdapter(private val context: Fragment) :
     ): ViewHolder {
         val view =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.recommend_item, parent, false)
+                .inflate(R.layout.daily_recommend_item, parent, false)
         return ViewHolder(view)
     }
 
