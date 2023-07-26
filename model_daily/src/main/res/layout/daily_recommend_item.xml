@@ -21,7 +21,7 @@
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/play"
+        android:src="@drawable/recommand_play"
         app:layout_constraintBottom_toBottomOf="@+id/recommend_cover"
         app:layout_constraintEnd_toEndOf="@+id/recommend_cover"
         app:layout_constraintStart_toStartOf="parent"

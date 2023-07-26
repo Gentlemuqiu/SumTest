@@ -128,6 +128,7 @@ class DailyFragment : Fragment() {
                 }
             }
         })
+
     }
 
 
@@ -182,6 +183,7 @@ class DailyFragment : Fragment() {
                     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(editText.windowToken, 0)
                 }
+                context?.let { it1 -> hideKeyboard(it1, mBinding.etSearch) }
             })
             class EtOnTouchListener() : OnTouchListener {
                 var touch_flag = 0
