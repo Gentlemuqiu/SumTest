@@ -164,7 +164,7 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/belowBanner"
-                    android:layout_width="300dp"
+                    android:layout_width="290dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:clipChildren="false" />

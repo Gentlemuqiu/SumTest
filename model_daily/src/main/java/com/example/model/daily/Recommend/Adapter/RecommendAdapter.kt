@@ -43,7 +43,7 @@ class RecommendAdapter (private val fragment: Fragment, private val data: ArrayL
                 timeText = findViewById(R.id.recommend_duration)
                 typeText = findViewById(R.id.recommend_type)
             }
-            play.setOnClickListener {
+            coverImage.setOnClickListener {
                 if (absoluteAdapterPosition == 0 || absoluteAdapterPosition == 3 ) {
                     data[absoluteAdapterPosition].run {
                         ARouter.getInstance().build("/play/PlayActivity/")

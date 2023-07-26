@@ -40,7 +40,7 @@ class BelowStoryAdapter (private val fragment: Fragment, private val data: Array
                 timeText = findViewById(R.id.belowStory_duration)
                 typeText = findViewById(R.id.belowStory_type)
             }
-            play.setOnClickListener {
+            coverImage.setOnClickListener {
                 if (absoluteAdapterPosition == 0 || absoluteAdapterPosition == 3) {
                     data[absoluteAdapterPosition].run {
                         ARouter.getInstance().build("/play/PlayActivity/")
