@@ -12,7 +12,7 @@
 
 6. 视频播放的功能 ，使用第三方控件dkPlayer实现播放视频的功能，此界面下方用了NestedScrowView嵌套recyclerView实现嵌套滑动，加载相关的视频，阻止滑动冲突。
 
-   ![1690354162646](C:\Users\Gentle\Desktop\在人间\FileRecv\1690354162646.gif)
+   ![1690354162646](https://github.com/Gentlemuqiu/SumTest/images/1690354162646)
 
 7. 实现发现页面，发现页面整体以粉色为背景，主框架是一个recyclerView，recyclerView的每个item里嵌套有viewpager2，自定义了卡片的翻页效果，并实现上拉加载更多的功能。![img](file:///C:\Users\Gentle\Documents\Tencent Files\1627812101\Image\C2C\1697742AA9137F557BB8155B0405E418.gif)
 
