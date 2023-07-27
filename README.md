@@ -14,7 +14,7 @@
 
    ![1690354162646](https://github.com/Gentlemuqiu/SumTest/blob/Lixh_feature/images/1690354162646.gif)
 
-7. 实现发现页面，发现页面整体以粉色为背景，主框架是一个recyclerView，recyclerView的每个item里嵌套有viewpager2，自定义了卡片的翻页效果，并实现上拉加载更多的功能。![img](file:///C:\Users\Gentle\Documents\Tencent Files\1627812101\Image\C2C\1697742AA9137F557BB8155B0405E418.gif)
+7. 实现发现页面，发现页面整体以粉色为背景，主框架是一个recyclerView，recyclerView的每个item里嵌套有viewpager2，自定义了卡片的翻页效果，并实现上拉加载更多的功能。![img](https://github.com/Gentlemuqiu/SumTest/blob/Lixh_feature/images/1697742AA9137F557BB8155B0405E418.gif)
 
 8. 广场界面设置了反转动画。
 
@@ -22,19 +22,19 @@
 
    在此处使用了自定义的马赛克图片
 
-![img](file:///C:\Users\Gentle\Documents\Tencent Files\1627812101\Image\C2C\1F177105B7377B388A54BA29C5C69975.gif)
+![img](https://github.com/Gentlemuqiu/SumTest/blob/Lixh_feature/images/1F177105B7377B388A54BA29C5C69975.gif)
 
 10. 广场中的专题栏目：
 
     同样由于接口提供的图片无法使用，故而我找了几张鬼刀的图片（个人比较喜欢），然后轮回播放，当点击视图时，会跳出bottomsheetDialog在其中设置我点击的相关内容。在专题栏也增加了加载更多的功能。
 
-![1690356721010](C:\Users\Gentle\Desktop\在人间\FileRecv\1690356721010.gif)
+![1690356721010](https://github.com/Gentlemuqiu/SumTest/blob/Lixh_feature/images/1690356721010.gif)
 
 11. 广场的推荐栏
 
 使用瀑布流式布局，同样也实现了上拉加载更多的功能，根据不同的样式设置不同的点击事件，在此处使用了第三方库photoView来加载图片的功能。
 
-![1690359444569](C:\Users\Gentle\Desktop\在人间\FileRecv\1690359444569.gif)
+![1690359444569](https://github.com/Gentlemuqiu/SumTest/blob/Lixh_feature/images/1690359444569.gif)
 
 12. 增加了无网处理的功能(仅限热门里的周排行)
 
@@ -59,8 +59,8 @@
 这一年呀，从一个连“int”，“String”都不知道的萌新，变成了如今能开发app的程序员（虽然仍很垃圾），很不容易啊，感谢在这一路上和我们不离不弃的学长，没有你们为我们指点的话，怕是早就放弃了吧。
 
 以前有些功利性，只是想着进红岩，然后就能找到份好工作，就能和别人吹牛逼，说我多厉害多厉害怎么的，可随着一件件事的发生，这一切似乎都在改变着，因为这里呀，有着我的朋友，这一个月的学习，我们也建立了深厚的友谊，一起扯皮，一起打闹。那晚团建的时候，真的很开心呀，有种我们是一个集体的感觉。我们是一家人的感觉。现在呀，我不只是为了有个更好的工作来进红岩，我更不想和这群冤种朋友们分开。
+![XHXMS)}1Y IFCD 6Z`X3BE](https://github.com/Gentlemuqiu/SumTest/assets/115886697/2601eb55-a25c-4690-bc8e-e83ed6ad134f)
 
-![image-20230726115659959](C:\Users\Gentle\AppData\Roaming\Typora\typora-user-images\image-20230726115659959.png)
 
 反思：
 
