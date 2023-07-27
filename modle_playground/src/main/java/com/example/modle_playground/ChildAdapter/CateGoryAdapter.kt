@@ -53,7 +53,7 @@ class CateGoryAdapter(private val fragment: Fragment) : ListAdapter<CateGoryBean
                         .navigation(fragment.activity?.application?.applicationContext)
                 }
             }
-            val anim = ObjectAnimator.ofInt(iconImage, "ratio", - 100, 100)
+            anim = ObjectAnimator.ofInt(iconImage, "ratio", - 100, 100)
             anim.duration = 2000
             iconImage.setGridCount(20)
             iconImage.setOffset(5)
@@ -74,15 +74,20 @@ class CateGoryAdapter(private val fragment: Fragment) : ListAdapter<CateGoryBean
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.run {
+       holder.run {
             getItem(position).run {
-                val bitmap = BitmapFactory.decodeResource(fragment.resources, imageArray[position])
-                iconImage.setImageBitmap(bitmap)
+                iconImage.setImageBitmap(null)
+                Glide.with(fragment).asBitmap().load(imageArray[position])
+                    .into(object : SimpleTarget<Bitmap>() {
+                        override fun onResourceReady(
+                            resource: Bitmap,
+                            transition: Transition<in Bitmap>?
+                        ) {
+                            iconImage.setImageBitmap(resource)
+                        }
+                    })
                 tvCategories.text = name
             }
-
-
-
         }
     }
 }
