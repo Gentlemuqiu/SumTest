@@ -1,7 +1,6 @@
 package com.example.sumtest
 
-import androidx.room.Room
-import androidx.room.RoomDatabase
+
 import com.alibaba.android.arouter.launcher.ARouter
 
 class App : BaseApp() {
