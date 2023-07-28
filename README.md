@@ -42,7 +42,7 @@
 
 1. 相较于五一考核我搭建的网络请求框架，这次没有在网络请求层用livedata，防止了每次调用函数生成一个新的livedata而使viewModel中没有保存数据，违背mvvm的初衷。 这次我在viewmodel里用协程在IO调度器上进行网络请求，然后直接收集给livedata，防止了livedata创建多次出现的问题
 
-2. 相较于五一考核这次使用了差分刷新，并用adapter.notifyItemRangeChanged(count, data.size)进行数据刷新，防止了notifyDataSetChanged全量刷新影响性能。
+2. 相较于五一考核这次使用了差分刷新，防止了notifyDataSetChanged全量刷新影响性能。
 
 3. 设置了一些好看的动画效果。
 4. 利用hashmap键值对的方式进行了无网处理。当没有网络的时候从hashmap中拿取数据，当有网络的时候向hashmap里存储数据。
@@ -50,7 +50,8 @@
 
 ####不足
 
-嵌套滑动这块解决的不是很好，还是会有点滑动冲突。其它的倒也还好，没有明显的bug。
+嵌套滑动这块解决的不是很好，还是会有点滑动冲突。
+对rv缓存机制理解不够透彻,致使分类界面会有bug
 
 ####心得体会(一点自己的心路历程)
 
